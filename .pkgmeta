@@ -1,0 +1,9 @@
+package-as: SellJunk
+
+externals:
+    /libs/AceAddon-2.0: http://svn.wowace.com/wowace/trunk/Ace2/AceAddon-2.0
+    /libs/AceOO-2.0:  http://svn.wowace.com/wowace/trunk/Ace2/AceOO-2.0
+    /libs/AceLibrary:  http://svn.wowace.com/wowace/trunk/Ace2/AceLibrary
+    /libs/AceEvent-2.0:  http://svn.wowace.com/wowace/trunk/Ace2/AceEvent-2.0
+    /libs/AceDB-2.0:  http://svn.wowace.com/wowace/trunk/Ace2/AceDB-2.0
+    /libs/AceConsole-2.0:  http://svn.wowace.com/wowace/trunk/Ace2/AceConsole-2.0
