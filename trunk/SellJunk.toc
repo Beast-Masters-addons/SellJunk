@@ -2,7 +2,7 @@
 ## Title: Sell Junk |cff7fff7f -Ace2-|r
 ## Notes: Sells all junk in your inventory at once.
 ## Author: Xonpathos, CrazyBenny
-## Version: @project-revision@
+## Version: 1.0
 ## OptionalDeps: Ace2
 ## SavedVariables: SellJunkDB
 ## SavedVariablesPerCharacter: SellJunkDBPC
