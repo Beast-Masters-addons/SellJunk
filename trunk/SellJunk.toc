@@ -2,11 +2,12 @@
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Author: CrazyBenny of Stormrage-EU
-## Version: 2.0 beta 1
+## X-Email: s_m AT centrum DOT cz
+## LastUpdate: @project-date-iso@
+## Version: @project-version@
 
 ## X-Credits: Xonpathos for previous version of SellJunk
 ## X-Category: Inventory
-## X-Email: s_m AT centrum DOT cz
 
 ## SavedVariables: SellJunkDB
 
@@ -16,6 +17,5 @@ libs\AceConsole-3.0\AceConsole-3.0.xml
 libs\AceDB-3.0\AceDB-3.0.xml
 libs\AceEvent-3.0\AceEvent-3.0.xml
 libs\AceGUI-3.0\AceGUI-3.0.xml
-libs\LibStub\LibStub.lua
 
 SellJunk.lua
