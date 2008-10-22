@@ -3,6 +3,8 @@ local addon	= LibStub("AceAddon-3.0"):GetAddon("SellJunk")
 local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
 local AceConfigDialog 	= LibStub("AceConfigDialog-3.0")
 
+local L = LibStub("AceLocale-3.0"):GetLocale("SellJunk", true)
+
 addon.optionsFrame = {}
 local options = nil
 
@@ -58,7 +60,7 @@ function addon:Sell()
 				if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
 					PickupContainerItem(bag,slot)
 					PickupMerchantItem()
-					self:Print("Sold " .. item)
+					self:Print(L["Sold "] .. item)
 				end
 			end
 		end
@@ -66,17 +68,16 @@ function addon:Sell()
 end
 
 function addon:List()
-	self:Print("listing:")
 	local test
 	if self.db.global.exceptions then
-		self:Print("Global exception list:")
+		self:Print(L["Global exception list:"])
 		for k,v in pairs(self.db.global.exceptions) do
 			self:Print(v)
 		end
 	end
 
 	if self.db.char.exceptions then
-		self:Print("Character exception list:")
+		self:Print(L["Character exception list:"])
 		for k,v in pairs(self.db.char.exceptions) do
 			self:Print(v)
 		end
@@ -86,10 +87,10 @@ end
 function addon:Add(link, global)
 	if global then
 		self.db.global.exceptions[table.getn(self.db.global.exceptions) + 1] = link
-		self:Print(link .. " added to global exception list.")
+		self:Print(L["Added "] .. link .. L[" to global exception list."])
 	else
 		self.db.char.exceptions[table.getn(self.db.char.exceptions) + 1] = link
-		self:Print(link .. " added to character exception list.")
+		self:Print(L["Added "] .. link .. L[" to character exception list."])
 	end		
 end
 
@@ -113,7 +114,7 @@ function addon:Rem(link, global)
 			end
 		end
 		if found then
-			self:Print("Removed " .. link .. " from global exception list.")
+			self:Print(L["Removed "] .. link .. L[" from global exception list."])
 		end
 	else
 		for k,v in pairs(self.db.char.exceptions) do
@@ -130,7 +131,7 @@ function addon:Rem(link, global)
 			end
 		end
 		if found then
-			self:Print("Removed " .. link .. " from character's exception list.")
+			self:Print(L["Removed "] .. link .. L[" from character's exception list."])
 		end
 	end
 end
@@ -171,7 +172,6 @@ function addon:PopulateOptions()
 					order	= 1,
 					type	= "group",
 					name	= "global",
-					desc	= "Global settings",
 					args	= {
 						header1 = {
 							order	= 10,
@@ -181,8 +181,8 @@ function addon:PopulateOptions()
 						auto = {
 							order	= 11,
 							type = "toggle",
-							name = "Automatically sell junk at vendor?",
-							desc = "Toggles the automatic selling of junk when the merchant window is opened.",
+							name = L["Automatically sell junk at vendor?"],
+							desc = L["Toggles the automatic selling of junk when the merchant window is opened."],
 							get = function() return addon.db.char.auto end,
 							set = function() self.db.char.auto = not self.db.char.auto end,
 						},
@@ -194,8 +194,8 @@ function addon:PopulateOptions()
 						list = {
 							order	= 13,
 							type = "execute",
-							name = "list all exceptions",
-							desc = "Lists all exceptions",
+							name = L["List all exceptions"],
+							desc = L["Lists all exceptions"],
 							func = function() addon:List() end,
 						},
 						header3 = {
@@ -206,46 +206,46 @@ function addon:PopulateOptions()
 						header4 = {
 							order	= 15,
 							type	= "header",
-							name	= "Global Exceptions",
+							name	= L["Global Exceptions"],
 						},
 						add = {
 							order	= 16,
 							type = "input",
-							name = "Add item:",
-							desc = "Add an exception for all characters.",
-							usage = "<Item Link>",
+							name = L["Add item:"],
+							desc = L["Add an exception for all characters."],
+							usage = L["<Item Link>"],
 							get = false,
 							set = function(info, v) addon:Add(v, true) end,
 						},
 						rem = {
 							order	= 17,
 							type = "input",
-							name = "Remove item:",
-							desc = "Remove an exception for all characters.",
-							usage = "<Item Link>",
+							name = L["Remove item:"],
+							desc = L["Remove an exception for all characters."],
+							usage = L["<Item Link>"],
 							get = false,
 							set = function(info, v) addon:Rem(v, true) end,
 						},
 						header5 = {
 							order	= 18,
 							type	= "header",
-							name	= "Character Specific Exceptions",
+							name	= L["Character Specific Exceptions"],
 						},
 						addMe = {
 							order	= 19,
 							type = "input",
-							name = "Add item:",
-							desc = "Add an exception for this characters.",
-							usage = "<Item Link>",
+							name = L["Add item:"],
+							desc = L["Add an exception for this characters."],
+							usage = L["<Item Link>"],
 							get = false,
 							set = function(info, v) addon:Add(v, false) end,
 						},
 						remMe = {
 							order	= 20,
 							type = "input",
-							name = "Remove item:",
-							desc = "Remove an exception for this characters.",
-							usage = "<Item Link>",
+							name = L["Remove item:"],
+							desc = L["Remove an exception for this characters."],
+							usage = L["<Item Link>"],
 							get = false,
 							set = function(info, v) addon:Rem(v, false) end,
 						},
