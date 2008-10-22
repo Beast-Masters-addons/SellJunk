@@ -18,4 +18,5 @@ libs\AceDB-3.0\AceDB-3.0.xml
 libs\AceEvent-3.0\AceEvent-3.0.xml
 libs\AceGUI-3.0\AceGUI-3.0.xml
 
+locale-enUS.lua
 SellJunk.lua
