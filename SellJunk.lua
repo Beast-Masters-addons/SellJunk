@@ -57,10 +57,16 @@ local options = {
 }
 
 SellJunk = AceLibrary("AceAddon-2.0"):new("AceConsole-2.0","AceDB-2.0","AceEvent-2.0")
+local SellJunk = SellJunk
 SellJunk:RegisterChatCommand({"/SellJunk","/sj"},options)
 SellJunk:RegisterDB("SellJunkDB","SellJunkDBPC")
 SellJunk:RegisterDefaults("char", {exception = {}, auto = false })
 SellJunk:RegisterDefaults("account", {exception = {} })
+
+local sellButton = CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
+sellButton:SetPoint("TOPRIGHT", -41, -40)
+sellButton:SetText("Sell Junk")
+sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
 function SellJunk:OnEnable()
 	self:RegisterEvent("MERCHANT_SHOW")
@@ -87,9 +93,8 @@ function SellJunk:Sell()
 			if item then
 				local found = string.find(item,"|cff9d9d9d")
 				if ((found) and (not SellJunk:isException(item))) or ((not found) and (SellJunk:isException(item))) then
-					-- PickupContainerItem(bag,slot)
-					-- MerchantItemButton_OnClick("LeftButton")
-					UseContainerItem(bag,slot)
+					PickupContainerItem(bag,slot)
+					PickupMerchantItem()
 					self:Print("Sold " .. item)
 				end
 			end
