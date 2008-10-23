@@ -13,6 +13,12 @@ addon.sellButton:SetPoint("TOPRIGHT", -41, -40)
 addon.sellButton:SetText("Sell Junk")
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
+local string_find = string.find
+local pairs = pairs
+local PickupContainerItem = PickupContainerItem
+local PickupMerchantItem = PickupMerchantItem
+
+
 function addon:OnInitialize()
 	self:RegisterChatCommand("selljunk", "OpenOptions")
 	self:RegisterChatCommand("sj", "OpenOptions")
@@ -56,7 +62,7 @@ function addon:Sell()
 		for slot = 1,GetContainerNumSlots(bag) do
 			local item = GetContainerItemLink(bag,slot)
 			if item then
-				local found = string.find(item,"|cff9d9d9d")
+				local found = string_find(item,"|cff9d9d9d")
 				if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
 					PickupContainerItem(bag,slot)
 					PickupMerchantItem()
@@ -86,10 +92,10 @@ end
 
 function addon:Add(link, global)
 	if global then
-		self.db.global.exceptions[table.getn(self.db.global.exceptions) + 1] = link
+		self.db.global.exceptions[#(self.db.global.exceptions) + 1] = link
 		self:Print(L["Added "] .. link .. L[" to global exception list."])
 	else
-		self.db.char.exceptions[table.getn(self.db.char.exceptions) + 1] = link
+		self.db.char.exceptions[#(self.db.char.exceptions) + 1] = link
 		self:Print(L["Added "] .. link .. L[" to character exception list."])
 	end		
 end
@@ -97,7 +103,7 @@ end
 function addon:Rem(link, global)
 	local found = false
 	local exception
-	local _, _, linkID = string.find(link,"item:(%d+)")
+	local _, _, linkID = string_find(link,"item:(%d+)")
 	
 	if global then
 		for k,v in pairs(self.db.global.exceptions) do
@@ -118,7 +124,7 @@ function addon:Rem(link, global)
 		end
 	else
 		for k,v in pairs(self.db.char.exceptions) do
-			_, _, exception = string.find(v,"item:(%d+)")
+			_, _, exception = string_find(v,"item:(%d+)")
 			if (exception == linkID) then
 				found = true
 			end
@@ -138,10 +144,10 @@ end
 
 function addon:isException(link)
 	local exception
-	_, _, link = string.find(link,"item:(%d+)")
+	_, _, link = string_find(link,"item:(%d+)")
 	if self.db.global.exceptions then
 		for k,v in pairs(self.db.global.exceptions) do
-			_, _, exception = string.find(v,"item:(%d+)")
+			_, _, exception = string_find(v,"item:(%d+)")
 			if exception == link then
 				return true
 			end
@@ -149,7 +155,7 @@ function addon:isException(link)
 	end
 	if self.db.char.exceptions then
 		for k,v in pairs(self.db.char.exceptions) do
-			_, _, exception = string.find(v,"item:(%d+)")
+			_, _, exception = string_find(v,"item:(%d+)")
 			if exception == link then
 				return true
 			end
@@ -180,11 +186,11 @@ function addon:PopulateOptions()
 						},
 						auto = {
 							order	= 11,
-							type = "toggle",
-							name = L["Automatically sell junk at vendor?"],
-							desc = L["Toggles the automatic selling of junk when the merchant window is opened."],
-							get = function() return addon.db.char.auto end,
-							set = function() self.db.char.auto = not self.db.char.auto end,
+							type 	= "toggle",
+							name 	= L["Automatically sell junk at vendor?"],
+							desc 	= L["Toggles the automatic selling of junk when the merchant window is opened."],
+							get 	= function() return addon.db.char.auto end,
+							set 	= function() self.db.char.auto = not self.db.char.auto end,
 						},
 						header2 = {
 							order	= 12,
@@ -193,10 +199,10 @@ function addon:PopulateOptions()
 						},
 						list = {
 							order	= 13,
-							type = "execute",
-							name = L["List all exceptions"],
-							desc = L["Lists all exceptions"],
-							func = function() addon:List() end,
+							type 	= "execute",
+							name 	= L["List all exceptions"],
+							desc 	= L["Lists all exceptions"],
+							func 	= function() addon:List() end,
 						},
 						header3 = {
 							order	= 14,
@@ -210,21 +216,21 @@ function addon:PopulateOptions()
 						},
 						add = {
 							order	= 16,
-							type = "input",
-							name = L["Add item:"],
-							desc = L["Add an exception for all characters."],
-							usage = L["<Item Link>"],
-							get = false,
-							set = function(info, v) addon:Add(v, true) end,
+							type 	= "input",
+							name 	= L["Add item:"],
+							desc 	= L["Add an exception for all characters."],
+							usage 	= L["<Item Link>"],
+							get 	= false,
+							set 	= function(info, v) addon:Add(v, true) end,
 						},
 						rem = {
 							order	= 17,
-							type = "input",
-							name = L["Remove item:"],
-							desc = L["Remove an exception for all characters."],
-							usage = L["<Item Link>"],
-							get = false,
-							set = function(info, v) addon:Rem(v, true) end,
+							type 	= "input",
+							name 	= L["Remove item:"],
+							desc 	= L["Remove an exception for all characters."],
+							usage 	= L["<Item Link>"],
+							get 	= false,
+							set 	= function(info, v) addon:Rem(v, true) end,
 						},
 						header5 = {
 							order	= 18,
@@ -233,21 +239,21 @@ function addon:PopulateOptions()
 						},
 						addMe = {
 							order	= 19,
-							type = "input",
-							name = L["Add item:"],
-							desc = L["Add an exception for this characters."],
-							usage = L["<Item Link>"],
-							get = false,
-							set = function(info, v) addon:Add(v, false) end,
+							type 	= "input",
+							name 	= L["Add item:"],
+							desc 	= L["Add an exception for this characters."],
+							usage 	= L["<Item Link>"],
+							get 	= false,
+							set 	= function(info, v) addon:Add(v, false) end,
 						},
 						remMe = {
 							order	= 20,
-							type = "input",
-							name = L["Remove item:"],
-							desc = L["Remove an exception for this characters."],
-							usage = L["<Item Link>"],
-							get = false,
-							set = function(info, v) addon:Rem(v, false) end,
+							type 	= "input",
+							name 	= L["Remove item:"],
+							desc 	= L["Remove an exception for this characters."],
+							usage 	= L["<Item Link>"],
+							get 	= false,
+							set 	= function(info, v) addon:Rem(v, false) end,
 						},
 					}
 				}
