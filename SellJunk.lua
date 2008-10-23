@@ -66,7 +66,7 @@ function addon:Sell()
 				if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
 					PickupContainerItem(bag,slot)
 					PickupMerchantItem()
-					self:Print(L["Sold "] .. item)
+					self:Print(L["Sold: "] .. item)
 				end
 			end
 		end
