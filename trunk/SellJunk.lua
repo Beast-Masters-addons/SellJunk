@@ -214,8 +214,13 @@ function addon:PopulateOptions()
 							type	= "header",
 							name	= L["Global Exceptions"],
 						},
+						header5 = {
+							order 	= 16,
+							type 	= "description",
+							name	= L["Drag item into this window to add/remove it from exception list"],
+						},
 						add = {
-							order	= 16,
+							order	= 17,
 							type 	= "input",
 							name 	= L["Add item:"],
 							desc 	= L["Add an exception for all characters."],
@@ -224,7 +229,7 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Add(v, true) end,
 						},
 						rem = {
-							order	= 17,
+							order	= 18,
 							type 	= "input",
 							name 	= L["Remove item:"],
 							desc 	= L["Remove an exception for all characters."],
@@ -233,12 +238,12 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Rem(v, true) end,
 						},
 						header5 = {
-							order	= 18,
+							order	= 19,
 							type	= "header",
 							name	= L["Character Specific Exceptions"],
 						},
 						addMe = {
-							order	= 19,
+							order	= 20,
 							type 	= "input",
 							name 	= L["Add item:"],
 							desc 	= L["Add an exception for this characters."],
@@ -247,7 +252,7 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Add(v, false) end,
 						},
 						remMe = {
-							order	= 20,
+							order	= 21,
 							type 	= "input",
 							name 	= L["Remove item:"],
 							desc 	= L["Remove an exception for this characters."],
