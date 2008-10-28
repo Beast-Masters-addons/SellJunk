@@ -18,6 +18,7 @@ L["Toggles the automatic selling of junk when the merchant window is opened."] =
 L["List all exceptions"] = true
 L["Lists all exceptions"] = true
 L["Global Exceptions"] = true
+L["Drag item into this window to add/remove it from exception list"] = true
 L["Add item:"] = true
 L["Add an exception for all characters."] = true
 L["Remove item:"] = true
