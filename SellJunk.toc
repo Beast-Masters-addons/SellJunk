@@ -9,6 +9,10 @@
 ## X-Credits: Xonpathos for previous version of SellJunk
 ## X-Category: Inventory
 
+## LoadManagers: AddonLoader
+## X-LoadOn-Slash: /selljunk
+## X-LoadOn-Merchant: true
+
 ## SavedVariables: SellJunkDB
 
 #@no-lib-strip@
