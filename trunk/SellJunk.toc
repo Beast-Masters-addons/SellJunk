@@ -23,4 +23,5 @@ libs\AceConfig-3.0\AceConfig-3.0.xml
 locale-enUS.lua
 locale-zhCN.lua
 locale-zhTW.lua
+locale-ruRU.lua
 SellJunk.lua
