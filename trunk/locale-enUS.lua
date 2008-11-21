@@ -1,7 +1,8 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SellJunk", "enUS", true)
+﻿local L = LibStub("AceLocale-3.0"):NewLocale("SellJunk", "enUS", true)
 
 if L then
 
+L["Sell Junk"] = true
 L["Sold: "] = true
 L["Global exception list:"] = true
 L["Character exception list:"] = true

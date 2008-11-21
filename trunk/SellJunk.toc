@@ -1,4 +1,4 @@
-## Interface: 30000
+﻿## Interface: 30000
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Author: CrazyBenny of Stormrage-EU
@@ -25,4 +25,6 @@ libs\AceConfig-3.0\AceConfig-3.0.xml
 #@end-no-lib-strip@
 
 locale-enUS.lua
+locale-zhCN.lua
+locale-zhTW.lua
 SellJunk.lua
