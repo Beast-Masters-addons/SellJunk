@@ -20,84 +20,84 @@ local PickupMerchantItem = PickupMerchantItem
 
 
 function addon:OnInitialize()
-	self:RegisterChatCommand("selljunk", "OpenOptions")
-	self:RegisterChatCommand("sj", "OpenOptions")
+  self:RegisterChatCommand("selljunk", "OpenOptions")
+  self:RegisterChatCommand("sj", "OpenOptions")
 
-	self.db = LibStub("AceDB-3.0"):New("SellJunkDB")
-	self.db:RegisterDefaults({
-		char = {
-			exceptions = {},
-			auto = false,
-		},
-		global = {
-			exceptions = {},
-		}
-	})
+  self.db = LibStub("AceDB-3.0"):New("SellJunkDB")
+  self.db:RegisterDefaults({
+    char = {
+      exceptions = {},
+      auto = false,
+    },
+    global = {
+      exceptions = {},
+    }
+  })
 
-	self:PopulateOptions()
-	AceConfigRegistry:RegisterOptionsTable("SellJunk", options)
-	addon.optionsFrame = AceConfigDialog:AddToBlizOptions("SellJunk", nil, nil, "general")
+  self:PopulateOptions()
+  AceConfigRegistry:RegisterOptionsTable("SellJunk", options)
+  addon.optionsFrame = AceConfigDialog:AddToBlizOptions("SellJunk", nil, nil, "general")
 end
 
 function addon:OnEnable()
-	self:RegisterEvent("MERCHANT_SHOW")
+  self:RegisterEvent("MERCHANT_SHOW")
 end
 
 function addon:MERCHANT_SHOW()
-	if addon.db.char.auto then
-		self:Sell()
-	end
+  if addon.db.char.auto then
+    self:Sell()
+  end
 end
 
 function addon:IsAuto()
-	return addon.db.char.auto
+  return addon.db.char.auto
 end
 
 function addon:ToggleAuto()
-	self.db.char.auto = not self.db.char.auto
+  self.db.char.auto = not self.db.char.auto
 end
 
 function addon:Sell()
-	for bag = 0,4 do
-		for slot = 1,GetContainerNumSlots(bag) do
-			local item = GetContainerItemLink(bag,slot)
-			if item then
-				local found = string_find(item,"|cff9d9d9d")
-				if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
-					PickupContainerItem(bag,slot)
-					PickupMerchantItem()
-					self:Print(L["Sold: "] .. item)
-				end
-			end
-		end
-	end
+  for bag = 0,4 do
+    for slot = 1,GetContainerNumSlots(bag) do
+      local item = GetContainerItemLink(bag,slot)
+      if item then
+        local found = string_find(item,"|cff9d9d9d")
+        if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
+          PickupContainerItem(bag,slot)
+          PickupMerchantItem()
+          self:Print(L["Sold: "] .. item)
+        end
+      end
+    end
+  end
 end
 
 function addon:List()
-	local test
-	if self.db.global.exceptions then
-		self:Print(L["Global exception list:"])
-		for k,v in pairs(self.db.global.exceptions) do
-			self:Print(v)
-		end
-	end
+  local test
+  if self.db.global.exceptions then
+    self:Print(L["Global exception list:"])
+    for k,v in pairs(self.db.global.exceptions) do
+      self:Print(v)
+    end
+  end
 
-	if self.db.char.exceptions then
-		self:Print(L["Character exception list:"])
-		for k,v in pairs(self.db.char.exceptions) do
-			self:Print(v)
-		end
-	end
+  if self.db.char.exceptions then
+    self:Print(L["Character exception list:"])
+    for k,v in pairs(self.db.char.exceptions) do
+      self:Print(v)
+    end
+  end
 end
 
 function addon:Add(link, global)
-	if global then
-		self.db.global.exceptions[#(self.db.global.exceptions) + 1] = link
-		self:Print(L["Added "] .. link .. L[" to global exception list."])
-	else
-		self.db.char.exceptions[#(self.db.char.exceptions) + 1] = link
-		self:Print(L["Added "] .. link .. L[" to character exception list."])
-	end		
+  if global then
+    self.db.global.exceptions[#(self.db.global.exceptions) + 1] = link
+    self:Print(L["Added "] .. link .. L[" to global exception list."])
+  else
+    self.db.char.exceptions[#(self.db.char.exceptions) + 1] = link
+    self:Print(L["Added "] .. link .. L[" to character exception list."])
+  end		
 end
 
 function addon:Rem(link, global)
@@ -144,21 +144,30 @@ end
 
 function addon:isException(link)
 	local exception
-	_, _, link = string_find(link,"item:(%d+)")
+	_, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
+  _, _, link = string_find(link, "item:(%d+)")
 	if self.db.global.exceptions then
 		for k,v in pairs(self.db.global.exceptions) do
-			_, _, exception = string_find(v,"item:(%d+)")
+      if v == name then
+        return true
+      end
+    
+			_, _, exception = string_find(v, "item:(%d+)")
 			if exception == link then
 				return true
-			end
+      end
 		end
 	end
 	if self.db.char.exceptions then
 		for k,v in pairs(self.db.char.exceptions) do
-			_, _, exception = string_find(v,"item:(%d+)")
+			_, _, exception = string_find(v, "item:(%d+)")
 			if exception == link then
 				return true
 			end
+      
+      if exception == name then
+        return true
+      end
 		end
 	end
 	return false
