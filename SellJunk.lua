@@ -148,7 +148,7 @@ function addon:isException(link)
   _, _, link = string_find(link, "item:(%d+)")
 	if self.db.global.exceptions then
 		for k,v in pairs(self.db.global.exceptions) do
-      if v == name then
+      if v:lower() == name:lower() then
         return true
       end
     
