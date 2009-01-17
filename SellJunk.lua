@@ -91,11 +91,13 @@ function addon:List()
 end
 
 function addon:Add(link, global)
+  local _, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
+  
   if global then
-    self.db.global.exceptions[#(self.db.global.exceptions) + 1] = link
+    self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
     self:Print(L["Added "] .. link .. L[" to global exception list."])
   else
-    self.db.char.exceptions[#(self.db.char.exceptions) + 1] = link
+    self.db.char.exceptions[#(self.db.char.exceptions) + 1] = name
     self:Print(L["Added "] .. link .. L[" to character exception list."])
   end		
 end
@@ -104,11 +106,12 @@ function addon:Rem(link, global)
 	local found = false
 	local exception
 	local _, _, linkID = string_find(link,"item:(%d+)")
+  local _, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
 	
 	if global then
 		for k,v in pairs(self.db.global.exceptions) do
 			_, _, exception = string.find(v,"item:(%d+)")
-			if (exception == linkID) then
+			if (exception == linkID) or (exception:lower() == name:lower()) then
 				found = true
 			end
 			if found then
@@ -125,7 +128,7 @@ function addon:Rem(link, global)
 	else
 		for k,v in pairs(self.db.char.exceptions) do
 			_, _, exception = string_find(v,"item:(%d+)")
-			if (exception == linkID) then
+			if (exception == linkID) or (exception:lower() == name:lower()) then
 				found = true
 			end
 			if found then
