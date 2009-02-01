@@ -1,4 +1,4 @@
-﻿## Interface: 30000
+## Interface: 30000
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Author: CrazyBenny of Stormrage-EU

@@ -1,4 +1,4 @@
-﻿local L = LibStub("AceLocale-3.0"):NewLocale("SellJunk", "zhCN")
+local L = LibStub("AceLocale-3.0"):NewLocale("SellJunk", "zhCN")
 
 if L then
 
