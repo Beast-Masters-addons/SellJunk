@@ -63,7 +63,6 @@ function addon:Sell()
       local item = GetContainerItemLink(bag,slot)
       if item then
         local found = string_find(item,"|cff9d9d9d")
-
         if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
           PickupContainerItem(bag,slot)
           PickupMerchantItem()
@@ -92,10 +91,7 @@ function addon:List()
 end
 
 function addon:Add(link, global)
-  local found, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
-	if not found then
-		name = link
-	end
+  local _, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
   
   if global then
     self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
@@ -110,15 +106,12 @@ function addon:Rem(link, global)
 	local found = false
 	local exception
 	local _, _, linkID = string_find(link,"item:(%d+)")
-  local isLink, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
-	if not isLink then
-		name = link
-	end
+  local _, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
 	
 	if global then
 		for k,v in pairs(self.db.global.exceptions) do
-			_, _, exception = string_find(v,"item:(%d+)")
-			if (v:lower() == name:lower()) then
+			_, _, exception = string.find(v,"item:(%d+)")
+			if (exception == linkID) or (exception:lower() == name:lower()) then
 				found = true
 			end
 			if found then
@@ -135,7 +128,7 @@ function addon:Rem(link, global)
 	else
 		for k,v in pairs(self.db.char.exceptions) do
 			_, _, exception = string_find(v,"item:(%d+)")
-			if (v:lower() == name:lower()) then
+			if (exception == linkID) or (exception:lower() == name:lower()) then
 				found = true
 			end
 			if found then
@@ -154,11 +147,11 @@ end
 
 function addon:isException(link)
 	local exception
-	local _, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
+	_, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
   _, _, link = string_find(link, "item:(%d+)")
 	if self.db.global.exceptions then
 		for k,v in pairs(self.db.global.exceptions) do
-      if v:lower() == name:lower() or string_find(name:lower(), v:lower()) then
+      if v:lower() == name:lower() then
         return true
       end
     
@@ -170,10 +163,6 @@ function addon:isException(link)
 	end
 	if self.db.char.exceptions then
 		for k,v in pairs(self.db.char.exceptions) do
-			if v:lower() == name:lower() then
-        return true
-      end
-
 			_, _, exception = string_find(v, "item:(%d+)")
 			if exception == link then
 				return true
