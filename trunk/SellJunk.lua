@@ -57,11 +57,18 @@ function addon:ToggleAuto()
   self.db.char.auto = not self.db.char.auto
 end
 
+
+-------------------------------------------------------------
+-- Sells items:                                            --
+--   - grey quality, unless it's in exception list         --
+--   - better than grey quality, if it's in exception list --
+-------------------------------------------------------------
 function addon:Sell()
   for bag = 0,4 do
     for slot = 1,GetContainerNumSlots(bag) do
       local item = GetContainerItemLink(bag,slot)
       if item then
+				-- is it grey quality item?
         local found = string_find(item,"|cff9d9d9d")
 
         if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
@@ -74,8 +81,11 @@ function addon:Sell()
   end
 end
 
+
+-----------------------------------------
+-- Prints all exceptions to chat frame --
+-----------------------------------------
 function addon:List()
-  local test
   if self.db.global.exceptions then
     self:Print(L["Global exception list:"])
     for k,v in pairs(self.db.global.exceptions) do
@@ -92,15 +102,24 @@ function addon:List()
 end
 
 function addon:Add(link, global)
+
+	-- remove all trailing whitespace
+	link = strtrim(link)
+
+	-- extract name from an itemlink
   local found, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
+	
+	-- if it's not an itemlink, guess it's name of an item
 	if not found then
 		name = link
 	end
   
   if global then
+		-- append name of the item to global exception list
     self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
     self:Print(L["Added "] .. link .. L[" to global exception list."])
   else
+		-- append name of the item to character specific exception list
     self.db.char.exceptions[#(self.db.char.exceptions) + 1] = name
     self:Print(L["Added "] .. link .. L[" to character exception list."])
   end		
@@ -108,19 +127,37 @@ end
 
 function addon:Rem(link, global)
 	local found = false
-	local exception
-	local _, _, linkID = string_find(link,"item:(%d+)")
+	local exception = nil
+	
+	-- remove all trailing whitespace
+	link = strtrim(link)
+
+	-- extract name from an itemlink
   local isLink, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
+	
+	-- if it's not an itemlink, guess it's name of an item
 	if not isLink then
 		name = link
 	end
 	
 	if global then
+	
+		-- looping through global exceptions
 		for k,v in pairs(self.db.global.exceptions) do
-			_, _, exception = string_find(v,"item:(%d+)")
-			if (v:lower() == name:lower()) then
+			-- comparing exception list entry with given name
+			if v:lower() == name:lower() then
 				found = true
 			end
+			
+			-- extract name from itemlink (only for compatibility with old saved variables)
+			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
+			if isLink then
+				-- comparing exception list entry with given name
+				if exception:lower() == name:lower() then
+					found = true
+				end
+			end
+
 			if found then
 				if self.db.global.exceptions[k+1] then
 					self.db.global.exceptions[k] = self.db.global.exceptions[k+1]
@@ -129,15 +166,28 @@ function addon:Rem(link, global)
 				end
 			end
 		end
+
 		if found then
 			self:Print(L["Removed "] .. link .. L[" from global exception list."])
 		end
 	else
+	
+		-- looping through character specific exceptions
 		for k,v in pairs(self.db.char.exceptions) do
-			_, _, exception = string_find(v,"item:(%d+)")
-			if (v:lower() == name:lower()) then
+			-- comparing exception list entry with given name
+			if v:lower() == name:lower() then
 				found = true
 			end
+			
+			-- extract name from itemlink (only for compatibility with old saved variables)
+			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
+			if isLink then
+				-- comparing exception list entry with given name
+				if exception:lower() == name:lower() then
+					found = true
+				end
+			end
+
 			if found then
 				if self.db.char.exceptions[k+1] then
 					self.db.char.exceptions[k] = self.db.char.exceptions[k+1]
@@ -146,6 +196,7 @@ function addon:Rem(link, global)
 				end
 			end
 		end
+
 		if found then
 			self:Print(L["Removed "] .. link .. L[" from character's exception list."])
 		end
@@ -153,37 +204,60 @@ function addon:Rem(link, global)
 end
 
 function addon:isException(link)
-	local exception
-	local _, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
-  _, _, link = string_find(link, "item:(%d+)")
+	local exception = nil
+
+	-- extracting name of an item from the itemlink
+	local isLink, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
+
+	-- it's not an itemlink, so guess it's name of the item
+	if not isLink then
+		name = link
+	end
+
 	if self.db.global.exceptions then
+
+		-- looping through global exceptions
 		for k,v in pairs(self.db.global.exceptions) do
-      if v:lower() == name:lower() then
-        return true
-      end
-    
-			_, _, exception = string_find(v, "item:(%d+)")
-			if exception == link then
+
+			-- comparing exception list entry with given name
+			if v:lower() == name:lower() then
 				return true
-      end
+			end
+
+			-- extract name from itemlink (only for compatibility with old saved variables)
+			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
+			if isLink then
+				-- comparing exception list entry with given name
+				if exception:lower() == name:lower() then
+					return true
+				end
+			end
 		end
 	end
+
+
 	if self.db.char.exceptions then
+
+		-- looping through character specific eceptions
 		for k,v in pairs(self.db.char.exceptions) do
+
+			-- comparing exception list entry with given name
 			if v:lower() == name:lower() then
         return true
       end
 
-			_, _, exception = string_find(v, "item:(%d+)")
-			if exception == link then
-				return true
+			-- extract name from itemlink (only for compatibility with old saved variables)
+			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
+			if isLink then
+				-- comparing exception list entry with given name
+				if exception:lower() == name:lower() then
+					return true
+				end
 			end
-      
-      if exception == name then
-        return true
-      end
 		end
 	end
+
+	-- item not found in any exception list
 	return false
 end
 
