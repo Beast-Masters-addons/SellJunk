@@ -121,7 +121,7 @@ function addon:Add(link, global)
   else
 		-- append name of the item to character specific exception list
     self.db.char.exceptions[#(self.db.char.exceptions) + 1] = name
-    self:Print(L["Added "] .. link .. L[" to character exception list."])
+    self:Print(L["Added "] .. link .. L["to character exception list."])
   end		
 end
 
