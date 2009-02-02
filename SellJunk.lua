@@ -78,7 +78,7 @@ function addon:Sell()
           PickupContainerItem(bag,slot)
           PickupMerchantItem()
           self:Print(L["SOLD"].." "..item)
-					
+
 					if addon:IsMax12() then
 						limit = limit + 1
 						if limit == 12 then
@@ -118,47 +118,55 @@ function addon:Add(link, global)
 
 	-- extract name from an itemlink
   local found, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
-	
+
 	-- if it's not an itemlink, guess it's name of an item
 	if not found then
 		name = link
 	end
-  
+
   if global then
 		-- append name of the item to global exception list
     self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
-    self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["GLOBAL_EXC"])
+    if ( GetLocale() == "koKR" ) then
+			self:Print( link .. "|1이;가; ".. L["GLOBAL_EXC"] .. L["TO"].. " " .. L["ADDED"])
+    else
+			self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["GLOBAL_EXC"])
+    end
   else
 		-- append name of the item to character specific exception list
     self.db.char.exceptions[#(self.db.char.exceptions) + 1] = name
-    self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["CHAR_EXC"])
-  end		
+    if ( GetLocale() == "koKR" ) then
+			self:Print( link .. "|1이;가; ".. L["CHAR_EXC"] .. L["TO"].. " " .. L["ADDED"])
+    else
+			self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["CHAR_EXC"])
+    end
+  end
 end
 
 function addon:Rem(link, global)
 	local found = false
 	local exception = nil
-	
+
 	-- remove all trailing whitespace
 	link = strtrim(link)
 
 	-- extract name from an itemlink
   local isLink, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
-	
+
 	-- if it's not an itemlink, guess it's name of an item
 	if not isLink then
 		name = link
 	end
-	
+
 	if global then
-	
+
 		-- looping through global exceptions
 		for k,v in pairs(self.db.global.exceptions) do
 			-- comparing exception list entry with given name
 			if v:lower() == name:lower() then
 				found = true
 			end
-			
+
 			-- extract name from itemlink (only for compatibility with old saved variables)
 			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
 			if isLink then
@@ -178,17 +186,21 @@ function addon:Rem(link, global)
 		end
 
 		if found then
-			self:Print(L["REMOVED"].." "..link.." "..L["FROM"].." "..L["GLOBAL_EXC"])
+			if ( GetLocale() == "koKR" ) then
+				self:Print(link.."|1이;가; "..L["GLOBAL_EXC"]..L["FROM"] .." "..L["REMOVED"])
+			else
+				self:Print(L["REMOVED"].." "..link.." "..L["FROM"].." "..L["GLOBAL_EXC"])
+			end
 		end
 	else
-	
+
 		-- looping through character specific exceptions
 		for k,v in pairs(self.db.char.exceptions) do
 			-- comparing exception list entry with given name
 			if v:lower() == name:lower() then
 				found = true
 			end
-			
+
 			-- extract name from itemlink (only for compatibility with old saved variables)
 			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
 			if isLink then
@@ -208,7 +220,11 @@ function addon:Rem(link, global)
 		end
 
 		if found then
-			self:Print(L["REMOVED"].." "..link..L["FROM"].." "..L["CHAR_EXC"])
+			if ( GetLocale() == "koKR" ) then
+				self:Print(link.."|1이;가; "..L["CHAR_EXC"]..L["FROM"] .." "..L["REMOVED"]) 
+			else
+				self:Print(L["REMOVED"].." "..link..L["FROM"].." "..L["CHAR_EXC"])
+			end
 		end
 	end
 end
