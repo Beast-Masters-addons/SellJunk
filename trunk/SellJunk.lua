@@ -167,10 +167,12 @@ function addon:Add(link, global)
 	end
 
   if global then
-		if self.db.global.exceptions[name] or self.db.global.exceptions[link] then
-			self:Print("oh hai!")
-			return
+		for k,v in pairs(self.db.global.exceptions) do
+			if v == name or v == link then
+				return
+			end
 		end
+
 		-- append name of the item to global exception list
     self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
     if ( GetLocale() == "koKR" ) then
@@ -179,6 +181,12 @@ function addon:Add(link, global)
 			self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["GLOBAL_EXC"])
     end
   else
+		for k,v in pairs(self.db.char.exceptions) do
+			if v == name or v == link then
+				return
+			end
+		end
+
 		-- append name of the item to character specific exception list
     self.db.char.exceptions[#(self.db.char.exceptions) + 1] = name
     if ( GetLocale() == "koKR" ) then
