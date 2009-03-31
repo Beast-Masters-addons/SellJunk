@@ -1,0 +1,3 @@
+2.3:
+	- feature: option to show gold gain from selling trash
+	- bugfix: was possible to have same item many times on exception list
