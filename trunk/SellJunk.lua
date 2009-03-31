@@ -13,8 +13,16 @@ addon.sellButton:SetPoint("TOPRIGHT", -41, -40)
 addon.sellButton:SetText(L["SELLJUNK"])
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
+addon.tooltip = CreateFrame("GameTooltip", "MyScanningTooltip")
+addon.tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
+addon.tooltip:AddFontStrings(
+	addon.tooltip:CreateFontString("$parentTextLeft1", nil, "GameTooltipText"),
+	addon.tooltip:CreateFontString("$parentTextRight1", nil, "GameTooltipText")
+)
+
 local string_find = string.find
 local pairs = pairs
+local GetMoney = GetMoney
 local PickupContainerItem = PickupContainerItem
 local PickupMerchantItem = PickupMerchantItem
 
@@ -28,7 +36,8 @@ function addon:OnInitialize()
     char = {
       exceptions = {},
       auto = false,
-			max12 = true
+			max12 = true,
+			printGold = true
     },
     global = {
       exceptions = {},
@@ -42,9 +51,13 @@ end
 
 function addon:OnEnable()
   self:RegisterEvent("MERCHANT_SHOW")
+
+	self.total = 0
+
+	addon.tooltip:SetScript("OnTooltipAddMoney",function(_, arg2) self:AddProfit(arg2)	end)
 end
 
-function addon:MERCHANT_SHOW()
+function addon:MERCHANT_SHOW()	
   if addon.db.char.auto then
     self:Sell()
   end
@@ -58,6 +71,11 @@ function addon:IsMax12()
   return addon.db.char.max12
 end
 
+function addon:AddProfit(profit)
+	if profit then
+		self.total = self.total + profit
+	end
+end
 
 -------------------------------------------------------------
 -- Sells items:                                            --
@@ -75,8 +93,10 @@ function addon:Sell()
         local found = string_find(item,"|cff9d9d9d")
 
         if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
+					self.tooltip:ClearLines()
+					self.tooltip:SetBagItem(bag,slot)
           PickupContainerItem(bag,slot)
-          PickupMerchantItem()
+					PickupMerchantItem()
           self:Print(L["SOLD"].." "..item)
 
 					if addon:IsMax12() then
@@ -89,6 +109,28 @@ function addon:Sell()
       end
     end
   end
+
+	if self.db.char.printGold then
+		self:PrintGold()
+	end
+	self.total = 0
+end
+
+function addon:PrintGold()
+	local ret = ""
+	local gold = floor(self.total / (COPPER_PER_SILVER * SILVER_PER_GOLD));
+	local silver = floor((self.total - (gold * COPPER_PER_SILVER * SILVER_PER_GOLD)) / COPPER_PER_SILVER);
+	local copper = mod(self.total, COPPER_PER_SILVER);
+	if gold > 0 then
+		ret = gold.." "..L["GOLD"].." "
+	end
+	if silver > 0 or gold > 0 then
+		ret = ret..silver .." "..L["SILVER"].." "
+	end
+	ret = ret..copper.." "..L["COPPER"]
+	if silver > 0 or gold > 0  or copper > 0 then
+		self:Print(L["GAINED"].." "..ret)
+	end
 end
 
 
@@ -125,6 +167,10 @@ function addon:Add(link, global)
 	end
 
   if global then
+		if self.db.global.exceptions[name] or self.db.global.exceptions[link] then
+			self:Print("oh hai!")
+			return
+		end
 		-- append name of the item to global exception list
     self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
     if ( GetLocale() == "koKR" ) then
@@ -335,29 +381,42 @@ function addon:PopulateOptions()
 							type	= "description",
 							name	= "",
 						},
+						printGold = {
+							order = 6,
+							type  = "toggle",
+							name  = L["SHOW_GAIN"],
+							desc  = L["SHOW_GAIN_DESC"],
+							get 	= function() return addon.db.char.printGold end,
+							set 	= function() self.db.char.printGold = not self.db.char.printGold end,
+						},
+						header3 = {
+							order	= 7,
+							type	= "description",
+							name	= "",
+						},
 						list = {
-							order	= 6,
+							order	= 8,
 							type 	= "execute",
 							name 	= L["LIST_ALL"],
 							func 	= function() addon:List() end,
 						},
 						header4 = {
-							order	= 7,
+							order	= 9,
 							type	= "description",
 							name	= "",
 						},
 						header5 = {
-							order	= 8,
+							order	= 10,
 							type	= "header",
 							name	= L["GLOBAL_EXC"],
 						},
 						header6 = {
-							order = 9,
+							order = 11,
 							type 	= "description",
 							name	= L["DRAG_ITEM_DESC"],
 						},
 						add = {
-							order	= 10,
+							order	= 12,
 							type 	= "input",
 							name 	= L["ADD_ITEM"],
 							desc 	= L["ADD"].." "..L["ALL_CHARS"],
@@ -366,7 +425,7 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Add(v, true) end,
 						},
 						rem = {
-							order	= 11,
+							order	= 13,
 							type 	= "input",
 							name 	= L["REM_ITEM"],
 							desc 	= L["REM"].." "..L["ALL_CHARS"],
@@ -375,12 +434,12 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Rem(v, true) end,
 						},
 						header7 = {
-							order	= 12,
+							order	= 14,
 							type	= "header",
 							name	= L["CHAR_EXC"],
 						},
 						addMe = {
-							order	= 13,
+							order	= 15,
 							type 	= "input",
 							name 	= L["ADD_ITEM"],
 							desc 	= L["ADD"].." "..L["THIS_CHAR"],
@@ -389,7 +448,7 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Add(v, false) end,
 						},
 						remMe = {
-							order	= 14,
+							order	= 16,
 							type 	= "input",
 							name 	= L["REM_ITEM"],
 							desc 	= L["REM"].." "..L["THIS_CHAR"],
