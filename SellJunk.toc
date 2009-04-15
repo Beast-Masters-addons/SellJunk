@@ -1,4 +1,4 @@
-## Interface: 30000
+## Interface: 30100
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Author: CrazyBenny of Stormrage-EU
@@ -30,5 +30,6 @@ locale-ruRU.lua
 locale-esES.lua
 locale-koKR.lua
 locale-deDE.lua
+locale-frFR.lua
 
 SellJunk.lua
