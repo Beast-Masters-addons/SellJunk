@@ -1,6 +1,6 @@
 2.3.2:
   - feature: french (frFR) locale
-	- update: various locales
+  - update: various locales
 
 2.3.1:
 	- feature: german (deDE) locale
