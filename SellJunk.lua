@@ -133,26 +133,6 @@ function addon:PrintGold()
 	end
 end
 
-
------------------------------------------
--- Prints all exceptions to chat frame --
------------------------------------------
-function addon:List()
-  if self.db.global.exceptions then
-    self:Print(L["GLOBAL_EXC"]..":")
-    for k,v in pairs(self.db.global.exceptions) do
-      self:Print(v)
-    end
-  end
-
-  if self.db.char.exceptions then
-    self:Print(L["CHAR_EXC"]..":")
-    for k,v in pairs(self.db.char.exceptions) do
-      self:Print(v)
-    end
-  end
-end
-
 function addon:Add(link, global)
 
 	-- remove all trailing whitespace
@@ -341,6 +321,14 @@ function addon:isException(link)
 	return false
 end
 
+function addon:ClearGlobalDB()
+  self.db.global.exceptions = {}
+end
+
+function addon:ClearCharDB()
+  self.db.char.exceptions = {}
+end
+
 function addon:OpenOptions()
 	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
 end
@@ -402,11 +390,19 @@ function addon:PopulateOptions()
 							type	= "description",
 							name	= "",
 						},
-						list = {
+						clearglobal = {
 							order	= 8,
 							type 	= "execute",
-							name 	= L["LIST_ALL"],
-							func 	= function() addon:List() end,
+							name 	= L["CLEAR_GLOBAL"],
+              desc  = L["CLEAR_GLOBAL_DESC"],
+							func 	= function() addon:ClearGlobalDB() end,
+						},
+            clearchar = {
+							order	= 8,
+							type 	= "execute",
+							name 	= L["CLEAR_CHAR"],
+              desc  = L["CLEAR_CHAR_DESC"],
+							func 	= function() addon:ClearCharDB() end,
 						},
 						header4 = {
 							order	= 9,
