@@ -1,3 +1,7 @@
+2.4:
+  - feature: option to clear global or character specific exceptions
+  - removed: option to list all exceptions, it was useless anyway
+
 2.3.2:
   - feature: french (frFR) locale
   - update: various locales
