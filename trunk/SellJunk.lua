@@ -323,10 +323,12 @@ end
 
 function addon:ClearGlobalDB()
   self.db.global.exceptions = {}
+  print(L["CLEARED"])
 end
 
 function addon:ClearCharDB()
   self.db.char.exceptions = {}
+  print(L["CLEARED"])
 end
 
 function addon:OpenOptions()
@@ -387,8 +389,8 @@ function addon:PopulateOptions()
 						},
 						header3 = {
 							order	= 7,
-							type	= "description",
-							name	= "",
+							type	= "header",
+							name	= L["CLEAR_HEADER"],
 						},
 						clearglobal = {
 							order	= 8,
