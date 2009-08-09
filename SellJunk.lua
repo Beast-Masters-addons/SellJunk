@@ -323,12 +323,12 @@ end
 
 function addon:ClearGlobalDB()
   self.db.global.exceptions = {}
-  print(L["CLEARED"])
+  self:Print(L["CLEARED"])
 end
 
 function addon:ClearCharDB()
   self.db.char.exceptions = {}
-  print(L["CLEARED"])
+  self:Print(L["CLEARED"])
 end
 
 function addon:OpenOptions()
