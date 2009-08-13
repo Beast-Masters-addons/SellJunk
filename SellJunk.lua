@@ -13,16 +13,9 @@ addon.sellButton:SetPoint("TOPRIGHT", -41, -40)
 addon.sellButton:SetText(L["SELLJUNK"])
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
-addon.tooltip = CreateFrame("GameTooltip", "MyScanningTooltip")
-addon.tooltip:SetOwner(WorldFrame, "ANCHOR_NONE")
-addon.tooltip:AddFontStrings(
-	addon.tooltip:CreateFontString("$parentTextLeft1", nil, "GameTooltipText"),
-	addon.tooltip:CreateFontString("$parentTextRight1", nil, "GameTooltipText")
-)
-
 local string_find = string.find
 local pairs = pairs
-local GetMoney = GetMoney
+local GetItemInfo = GetItemInfo
 local PickupContainerItem = PickupContainerItem
 local PickupMerchantItem = PickupMerchantItem
 
@@ -51,10 +44,7 @@ end
 
 function addon:OnEnable()
   self:RegisterEvent("MERCHANT_SHOW")
-
 	self.total = 0
-
-	addon.tooltip:SetScript("OnTooltipAddMoney",function(_, arg2) self:AddProfit(arg2)	end)
 end
 
 function addon:MERCHANT_SHOW()	
@@ -93,8 +83,7 @@ function addon:Sell()
         local found = string_find(item,"|cff9d9d9d")
 
         if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
-					self.tooltip:ClearLines()
-					self.tooltip:SetBagItem(bag,slot)
+          addon:AddProfit(select(11, GetItemInfo(item)))
           PickupContainerItem(bag,slot)
 					PickupMerchantItem()
           self:Print(L["SOLD"].." "..item)

@@ -1,3 +1,9 @@
+2.4.2:
+  - update: more efficient code for getting item price
+
+2.4.1:
+  - update: TOC for patch 3.2
+
 2.4:
   - feature: option to clear global or character specific exceptions
   - removed: option to list all exceptions, it was useless anyway
