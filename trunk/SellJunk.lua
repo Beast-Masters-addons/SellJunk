@@ -15,6 +15,7 @@ addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
 local string_find = string.find
 local pairs = pairs
+local GetContainerItemInfo = GetContainerItemInfo
 local GetItemInfo = GetItemInfo
 local PickupContainerItem = PickupContainerItem
 local PickupMerchantItem = PickupMerchantItem
@@ -83,8 +84,8 @@ function addon:Sell()
         local found = string_find(item,"|cff9d9d9d")
 
         if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
-          addon:AddProfit(select(11, GetItemInfo(item)))
-          PickupContainerItem(bag,slot)
+          addon:AddProfit(select(11, GetItemInfo(item)) * select(2, GetContainerItemInfo(bag, slot)))
+          PickupContainerItem(bag, slot)
 					PickupMerchantItem()
           self:Print(L["SOLD"].." "..item)
 
