@@ -31,7 +31,8 @@ function addon:OnInitialize()
       exceptions = {},
       auto = false,
 			max12 = true,
-			printGold = true
+			printGold = true,
+      showSpam = true
     },
     global = {
       exceptions = {},
@@ -52,14 +53,6 @@ function addon:MERCHANT_SHOW()
   if addon.db.char.auto then
     self:Sell()
   end
-end
-
-function addon:IsAuto()
-  return addon.db.char.auto
-end
-
-function addon:IsMax12()
-  return addon.db.char.max12
 end
 
 function addon:AddProfit(profit)
@@ -87,9 +80,11 @@ function addon:Sell()
           addon:AddProfit(select(11, GetItemInfo(item)) * select(2, GetContainerItemInfo(bag, slot)))
           PickupContainerItem(bag, slot)
 					PickupMerchantItem()
-          self:Print(L["SOLD"].." "..item)
+          if addon.db.char.showSpam then
+            self:Print(L["SOLD"].." "..item)
+          end
 
-					if addon:IsMax12() then
+					if addon.db.char.max12 then
 						limit = limit + 1
 						if limit == 12 then
 							return
@@ -337,7 +332,7 @@ function addon:PopulateOptions()
 					type	= "group",
 					name	= "global",
 					args	= {
-						header1 = {
+						divider1 = {
 							order	= 1,
 							type	= "description",
 							name	= "",
@@ -350,7 +345,7 @@ function addon:PopulateOptions()
 							get 	= function() return addon.db.char.auto end,
 							set 	= function() self.db.char.auto = not self.db.char.auto end,
 						},
-						header2 = {
+						divider2 = {
 							order	= 3,
 							type	= "description",
 							name	= "",
@@ -364,7 +359,7 @@ function addon:PopulateOptions()
 							get 	= function() return addon.db.char.max12 end,
 							set 	= function() self.db.char.max12 = not self.db.char.max12 end,
 						},
-						header3 = {
+						divider3 = {
 							order	= 5,
 							type	= "description",
 							name	= "",
@@ -377,42 +372,55 @@ function addon:PopulateOptions()
 							get 	= function() return addon.db.char.printGold end,
 							set 	= function() self.db.char.printGold = not self.db.char.printGold end,
 						},
-						header3 = {
+            divider4 = {
 							order	= 7,
+							type	= "description",
+							name	= "",
+						},
+            showSpam = {
+              order = 8,
+              type  = "toggle",
+              name  = L["SHOW_SPAM"],
+              desc  = L["SHOW_SPAM_DESC"],
+              get   = function() return addon.db.char.showSpam end,
+              set   = function() addon.db.char.showSpam = not addon.db.char.showSpam end,
+            },
+						divider5 = {
+							order	= 9,
 							type	= "header",
 							name	= L["CLEAR_HEADER"],
 						},
 						clearglobal = {
-							order	= 8,
+							order	= 10,
 							type 	= "execute",
 							name 	= L["CLEAR_GLOBAL"],
               desc  = L["CLEAR_GLOBAL_DESC"],
 							func 	= function() addon:ClearGlobalDB() end,
 						},
             clearchar = {
-							order	= 8,
+							order	= 11,
 							type 	= "execute",
 							name 	= L["CLEAR_CHAR"],
               desc  = L["CLEAR_CHAR_DESC"],
 							func 	= function() addon:ClearCharDB() end,
 						},
-						header4 = {
-							order	= 9,
+						divider6 = {
+							order	= 12,
 							type	= "description",
 							name	= "",
 						},
-						header5 = {
-							order	= 10,
+						header1 = {
+							order	= 13,
 							type	= "header",
 							name	= L["GLOBAL_EXC"],
 						},
-						header6 = {
-							order = 11,
+						note1 = {
+							order = 14,
 							type 	= "description",
 							name	= L["DRAG_ITEM_DESC"],
 						},
 						add = {
-							order	= 12,
+							order	= 15,
 							type 	= "input",
 							name 	= L["ADD_ITEM"],
 							desc 	= L["ADD"].." "..L["ALL_CHARS"],
@@ -421,7 +429,7 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Add(v, true) end,
 						},
 						rem = {
-							order	= 13,
+							order	= 16,
 							type 	= "input",
 							name 	= L["REM_ITEM"],
 							desc 	= L["REM"].." "..L["ALL_CHARS"],
@@ -429,13 +437,13 @@ function addon:PopulateOptions()
 							get 	= false,
 							set 	= function(info, v) addon:Rem(v, true) end,
 						},
-						header7 = {
-							order	= 14,
+						header2 = {
+							order	= 17,
 							type	= "header",
 							name	= L["CHAR_EXC"],
 						},
 						addMe = {
-							order	= 15,
+							order	= 18,
 							type 	= "input",
 							name 	= L["ADD_ITEM"],
 							desc 	= L["ADD"].." "..L["THIS_CHAR"],
@@ -444,7 +452,7 @@ function addon:PopulateOptions()
 							set 	= function(info, v) addon:Add(v, false) end,
 						},
 						remMe = {
-							order	= 16,
+							order	= 19,
 							type 	= "input",
 							name 	= L["REM_ITEM"],
 							desc 	= L["REM"].." "..L["THIS_CHAR"],
