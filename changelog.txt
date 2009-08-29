@@ -1,3 +1,6 @@
+2.5:
+  - feature: option to hide the 'item sold' spam
+
 2.4.3:
   - update: korean (koKR) locale
 
