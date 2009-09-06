@@ -15,6 +15,7 @@ addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
 local string_find = string.find
 local pairs = pairs
+local wipe = wipe
 local GetContainerItemInfo = GetContainerItemInfo
 local GetItemInfo = GetItemInfo
 local PickupContainerItem = PickupContainerItem
@@ -307,12 +308,12 @@ function addon:isException(link)
 end
 
 function addon:ClearGlobalDB()
-  self.db.global.exceptions = {}
+  wipe(self.db.global.exceptions)
   self:Print(L["CLEARED"])
 end
 
 function addon:ClearCharDB()
-  self.db.char.exceptions = {}
+  wipe(self.db.char.exceptions)
   self:Print(L["CLEARED"])
 end
 
