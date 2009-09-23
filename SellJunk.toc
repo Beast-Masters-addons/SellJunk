@@ -11,7 +11,6 @@
 
 ## SavedVariables: SellJunkDB
 
-#@no-lib-strip@
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 libs\AceAddon-3.0\AceAddon-3.0.xml
@@ -21,7 +20,6 @@ libs\AceLocale-3.0\AceLocale-3.0.xml
 libs\AceConsole-3.0\AceConsole-3.0.xml
 libs\AceGUI-3.0\AceGUI-3.0.xml
 libs\AceConfig-3.0\AceConfig-3.0.xml
-#@end-no-lib-strip@
 
 locale-enUS.lua
 locale-zhCN.lua
@@ -32,4 +30,4 @@ locale-koKR.lua
 locale-deDE.lua
 locale-frFR.lua
 
-SellJunk.lua
+selljunk.lua
