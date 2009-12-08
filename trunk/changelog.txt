@@ -1,3 +1,6 @@
+2.5.2:
+  - update: updated for patch 3.3
+
 2.5.1:
   - update: spanish (esES) locale
 
@@ -12,7 +15,7 @@
   - update: more efficient code for getting item price
 
 2.4.1:
-  - update: TOC for patch 3.2
+  - update: updated for patch 3.2
 
 2.4:
   - feature: option to clear global or character specific exceptions
