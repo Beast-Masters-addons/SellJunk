@@ -1,7 +1,5 @@
-2.5.2:
-  - update: updated for patch 3.3
-
 2.5.1:
+  - update: updated for patch 3.3
   - update: spanish (esES) locale
 
 2.5:
