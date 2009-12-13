@@ -13,9 +13,13 @@ addon.sellButton:SetPoint("TOPRIGHT", -41, -40)
 addon.sellButton:SetText(L["SELLJUNK"])
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
+-- upvalues
+local floor = floor
+local mod = mod
 local string_find = string.find
 local pairs = pairs
 local wipe = wipe
+local DeleteCursorItem = DeleteCursorItem
 local GetContainerItemInfo = GetContainerItemInfo
 local GetItemInfo = GetItemInfo
 local PickupContainerItem = PickupContainerItem
@@ -91,6 +95,36 @@ function addon:Sell()
 							return
 						end
 					end
+        end
+      end
+    end
+  end
+
+	if self.db.char.printGold then
+		self:PrintGold()
+	end
+	self.total = 0
+end
+
+-------------------------------------------------------------
+-- Destroys items:                                         --
+--   - grey quality, unless it's in exception list         --
+--   - better than grey quality, if it's in exception list --
+-------------------------------------------------------------
+function addon:Destroy()
+  for bag = 0,4 do
+    for slot = 1,GetContainerNumSlots(bag) do
+      local item = GetContainerItemLink(bag,slot)
+      if item then
+				-- is it grey quality item?
+        local found = string_find(item,"|cff9d9d9d")
+
+        if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
+          PickupContainerItem(bag, slot)
+					DeleteCursorItem()
+          if addon.db.char.showSpam then
+            self:Print(L["DESTROYED"].." "..item)
+          end
         end
       end
     end
@@ -317,8 +351,13 @@ function addon:ClearCharDB()
   self:Print(L["CLEARED"])
 end
 
-function addon:OpenOptions()
-	InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
+function addon:OpenOptions(input)
+  local arg = self:GetArgs(input, 1, 1, input)
+  if arg == 'destroy' then
+    self:Destroy()
+  else
+    InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
+  end
 end
 
 function addon:PopulateOptions()
