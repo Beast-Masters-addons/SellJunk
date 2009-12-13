@@ -1,3 +1,6 @@
+2.6:
+  - feature: added command '/sj destroy', that will delete all junk from bags
+
 2.5.1:
   - update: updated for patch 3.3
   - update: spanish (esES) locale
