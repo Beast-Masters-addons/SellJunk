@@ -1,5 +1,5 @@
 2.6:
-  - feature: added command '/sj destroy', that will delete all junk from bags
+  - feature: added command '/sj destroy', that will delete all junk from bags and '/sj destroy x', that will delete up to x pieces of junk
 
 2.5.1:
   - update: updated for patch 3.3
