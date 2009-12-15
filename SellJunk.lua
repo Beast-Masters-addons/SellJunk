@@ -27,8 +27,8 @@ local PickupMerchantItem = PickupMerchantItem
 
 
 function addon:OnInitialize()
-  self:RegisterChatCommand("selljunk", "OpenOptions")
-  self:RegisterChatCommand("sj", "OpenOptions")
+  self:RegisterChatCommand("selljunk", "HandleSlashCommands")
+  self:RegisterChatCommand("sj", "HandleSlashCommands")
 
   self.db = LibStub("AceDB-3.0"):New("SellJunkDB")
   self.db:RegisterDefaults({
@@ -111,7 +111,11 @@ end
 --   - grey quality, unless it's in exception list         --
 --   - better than grey quality, if it's in exception list --
 -------------------------------------------------------------
-function addon:Destroy()
+function addon:Destroy(count)
+  local limit = 9001 -- it's over NINE THOUSAND!!!
+  if typeof(count) == 'number' then
+    limit = count
+  end
   for bag = 0,4 do
     for slot = 1,GetContainerNumSlots(bag) do
       local item = GetContainerItemLink(bag,slot)
@@ -125,8 +129,15 @@ function addon:Destroy()
           if addon.db.char.showSpam then
             self:Print(L["DESTROYED"].." "..item)
           end
+          limit = limit - 1
+          if limit == 0 then
+            break
+          end
         end
       end
+    end
+    if limit == 0 then
+      break
     end
   end
 
@@ -351,10 +362,10 @@ function addon:ClearCharDB()
   self:Print(L["CLEARED"])
 end
 
-function addon:OpenOptions(input)
-  local arg = self:GetArgs(input, 1, 1, input)
+function addon:HandleSlashCommands(input)
+  local arg, count = self:GetArgs(input, 2, 1, input)
   if arg == 'destroy' then
-    self:Destroy()
+    self:Destroy(count)
   else
     InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
   end
