@@ -113,7 +113,7 @@ end
 -------------------------------------------------------------
 function addon:Destroy(count)
   local limit = 9001 -- it's over NINE THOUSAND!!!
-  if type(count) == 'number' then
+  if count ~= nil then
     limit = count
   end
   for bag = 0,4 do
