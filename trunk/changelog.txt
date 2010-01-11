@@ -1,3 +1,7 @@
+2.6.3:
+  - feature: added commands '/sj add <name or itemlink>' and '/sj rem <name or itemlink>', that will add/remove given item to global exceptions
+  - bugfix: it should now skip items, that cannot be sell to a vendor as there are quite a few grey ones
+
 2.6.2:
   - bugfix: '/sj destroy <number>' did not work properly
 

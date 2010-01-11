@@ -73,6 +73,7 @@ end
 -------------------------------------------------------------
 function addon:Sell()
 	local limit = 0
+  local currPrice
 
   for bag = 0,4 do
     for slot = 1,GetContainerNumSlots(bag) do
@@ -82,19 +83,23 @@ function addon:Sell()
         local found = string_find(item,"|cff9d9d9d")
 
         if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
-          addon:AddProfit(select(11, GetItemInfo(item)) * select(2, GetContainerItemInfo(bag, slot)))
-          PickupContainerItem(bag, slot)
-					PickupMerchantItem()
-          if addon.db.char.showSpam then
-            self:Print(L["SOLD"].." "..item)
-          end
+          currPrice = select(11, GetItemInfo(item)) * select(2, GetContainerItemInfo(bag, slot))
+          -- this should get rid of problems with grey items, that cant be sell to a vendor
+          if currPrice > 0 then
+            addon:AddProfit(currPrice)
+            PickupContainerItem(bag, slot)
+            PickupMerchantItem()
+            if addon.db.char.showSpam then
+              self:Print(L["SOLD"].." "..item)
+            end
 
-					if addon.db.char.max12 then
-						limit = limit + 1
-						if limit == 12 then
-							return
-						end
-					end
+            if addon.db.char.max12 then
+              limit = limit + 1
+              if limit == 12 then
+                return
+              end
+            end
+          end
         end
       end
     end
@@ -363,9 +368,13 @@ function addon:ClearCharDB()
 end
 
 function addon:HandleSlashCommands(input)
-  local arg, count = self:GetArgs(input, 2, 1, input)
-  if arg == 'destroy' then
-    self:Destroy(count)
+  local arg1, arg2 = self:GetArgs(input, 2, 1, input)
+  if arg1 == 'destroy' then
+    self:Destroy(arg2)
+  elseif arg1 == 'add' and arg2 ~= nil then
+    self:Rem(arg2, true)
+  elseif arg1 == 'rem' and arg2 ~= nil then
+    self:Add(arg2, true)
   else
     InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
   end
