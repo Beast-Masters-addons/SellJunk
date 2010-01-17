@@ -372,9 +372,9 @@ function addon:HandleSlashCommands(input)
   if arg1 == 'destroy' then
     self:Destroy(arg2)
   elseif arg1 == 'add' and arg2 ~= nil then
-    self:Rem(arg2, true)
-  elseif arg1 == 'rem' and arg2 ~= nil then
     self:Add(arg2, true)
+  elseif arg1 == 'rem' and arg2 ~= nil then
+    self:Rem(arg2, true)
   else
     InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
   end
