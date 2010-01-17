@@ -194,7 +194,7 @@ function addon:Add(link, global)
     if ( GetLocale() == "koKR" ) then
 			self:Print( link .. "|1이;가; ".. L["GLOBAL_EXC"] .. L["TO"].. " " .. L["ADDED"])
     else
-			self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["GLOBAL_EXC"])
+			self:Print(L["ADDED"] .. " " .. link .. " " .. L["TO"].." "..L["GLOBAL_EXC"])
     end
   else
 		for k,v in pairs(self.db.char.exceptions) do
@@ -208,7 +208,7 @@ function addon:Add(link, global)
     if ( GetLocale() == "koKR" ) then
 			self:Print( link .. "|1이;가; ".. L["CHAR_EXC"] .. L["TO"].. " " .. L["ADDED"])
     else
-			self:Print(L["ADDED"] .. " " .. link .. L["TO"].." "..L["CHAR_EXC"])
+			self:Print(L["ADDED"] .. " " .. link .. " " .. L["TO"].." "..L["CHAR_EXC"])
     end
   end
 end
@@ -372,9 +372,17 @@ function addon:HandleSlashCommands(input)
   if arg1 == 'destroy' then
     self:Destroy(arg2)
   elseif arg1 == 'add' and arg2 ~= nil then
-    self:Add(arg2, true)
+    if arg2:find('|Hitem') == nil then
+      self:Print(L["ITEMLINK_ONLY"])
+    else
+      self:Add(arg2, true)
+    end
   elseif arg1 == 'rem' and arg2 ~= nil then
-    self:Rem(arg2, true)
+    if arg2:find('|Hitem') == nil then
+      self:Print(L["ITEMLINK_ONLY"])
+    else
+      self:Rem(arg2, true)
+    end
   else
     InterfaceOptionsFrame_OpenToCategory(addon.optionsFrame)
   end
