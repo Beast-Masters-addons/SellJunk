@@ -1,8 +1,7 @@
-local addonName addonTable = ...
+local addonName, addonTable = ...
 local L = {}
 addonTable.L = L
 
-L["Add"] = "Add"
 L["Added"] = "Added"
 L["Add item"] = "Add item"
 L["Automatically sell junk"] = "Automatically sell junk"
@@ -18,7 +17,6 @@ L["Gained"] = "Gained"
 L["gold"] = "gold"
 L["<Item Link>"] = "<Item Link>"
 L["Prints itemlinks to chat, when automatically selling items."] = "Prints itemlinks to chat, when automatically selling items."
-L["Remove"] = "Remove"
 L["Removed"] = "Removed"
 L["Remove item"] = "Remove item"
 L["Removes all exceptions."] = "Removes all exceptions."
