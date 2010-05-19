@@ -1,3 +1,7 @@
+3.0:
+  - Rewritten to improve performance
+  - feature: merged global and character exceptions into single list
+
 2.6.3:
   - feature: added commands '/sj add <itemlink>' and '/sj rem <itemlink>', that will add/remove given item to global exceptions
   - bugfix: it should now skip items, that cannot be sell to a vendor as there are quite a few grey ones
