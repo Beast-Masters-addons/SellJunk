@@ -1,6 +1,6 @@
-local L = LibStub("AceLocale-3.0"):NewLocale("SellJunk", "zhTW")
-
-if L then
+if GetLocale() == "deDE" then
+  local addonName, addonTable = ...
+  local L = addonTable.L
 
 --@localization(locale="zhTW", format="lua_additive_table", handle-unlocalized="english")@
 

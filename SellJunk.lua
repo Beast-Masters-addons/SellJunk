@@ -1,16 +1,17 @@
 SellJunk = LibStub("AceAddon-3.0"):NewAddon("SellJunk", "AceConsole-3.0","AceEvent-3.0")
 local addon	= LibStub("AceAddon-3.0"):GetAddon("SellJunk")
 local AceConfigRegistry = LibStub("AceConfigRegistry-3.0")
-local AceConfigDialog 	= LibStub("AceConfigDialog-3.0")
+local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
-local L = LibStub("AceLocale-3.0"):GetLocale("SellJunk", true)
+local addonName, addonTable = ...
+local L = addonTable.L
 
 addon.optionsFrame = {}
 local options = nil
 
 addon.sellButton = CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
 addon.sellButton:SetPoint("TOPRIGHT", -41, -40)
-addon.sellButton:SetText(L["SELLJUNK"])
+addon.sellButton:SetText(L["Sell Junk"])
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
 -- upvalues
@@ -33,7 +34,6 @@ function addon:OnInitialize()
   self.db = LibStub("AceDB-3.0"):New("SellJunkDB")
   self.db:RegisterDefaults({
     char = {
-      exceptions = {},
       auto = false,
 			max12 = true,
 			printGold = true,
@@ -90,7 +90,7 @@ function addon:Sell()
             PickupContainerItem(bag, slot)
             PickupMerchantItem()
             if addon.db.char.showSpam then
-              self:Print(L["SOLD"].." "..item)
+              self:Print(L["Sold"]..": "..item)
             end
 
             if addon.db.char.max12 then
@@ -132,7 +132,7 @@ function addon:Destroy(count)
           PickupContainerItem(bag, slot)
 					DeleteCursorItem()
           if addon.db.char.showSpam then
-            self:Print(L["DESTROYED"].." "..item)
+            self:Print(L["Destroyed"]..": "..item)
           end
           limit = limit - 1
           if limit == 0 then
@@ -158,18 +158,18 @@ function addon:PrintGold()
 	local silver = floor((self.total - (gold * COPPER_PER_SILVER * SILVER_PER_GOLD)) / COPPER_PER_SILVER);
 	local copper = mod(self.total, COPPER_PER_SILVER);
 	if gold > 0 then
-		ret = gold.." "..L["GOLD"].." "
+		ret = gold.." "..L["gold"].." "
 	end
 	if silver > 0 or gold > 0 then
-		ret = ret..silver .." "..L["SILVER"].." "
+		ret = ret..silver .." "..L["silver"].." "
 	end
-	ret = ret..copper.." "..L["COPPER"]
+	ret = ret..copper.." "..L["copper"]
 	if silver > 0 or gold > 0  or copper > 0 then
-		self:Print(L["GAINED"].." "..ret)
+		self:Print(L["Gained"]..": "..ret)
 	end
 end
 
-function addon:Add(link, global)
+function addon:Add(link)
 
 	-- remove all trailing whitespace
 	link = strtrim(link)
@@ -182,41 +182,19 @@ function addon:Add(link, global)
 		name = link
 	end
 
-  if global then
-		for k,v in pairs(self.db.global.exceptions) do
-			if v == name or v == link then
-				return
-			end
-		end
-
-		-- append name of the item to global exception list
-    self.db.global.exceptions[#(self.db.global.exceptions) + 1] = name
-    if ( GetLocale() == "koKR" ) then
-			self:Print( link .. "|1이;가; ".. L["GLOBAL_EXC"] .. L["TO"].. " " .. L["ADDED"])
-    else
-			self:Print(L["ADDED"] .. " " .. link .. " " .. L["TO"].." "..L["GLOBAL_EXC"])
-    end
-  else
-		for k,v in pairs(self.db.char.exceptions) do
-			if v == name or v == link then
-				return
-			end
-		end
-
-		-- append name of the item to character specific exception list
-    self.db.char.exceptions[#(self.db.char.exceptions) + 1] = name
-    if ( GetLocale() == "koKR" ) then
-			self:Print( link .. "|1이;가; ".. L["CHAR_EXC"] .. L["TO"].. " " .. L["ADDED"])
-    else
-			self:Print(L["ADDED"] .. " " .. link .. " " .. L["TO"].." "..L["CHAR_EXC"])
+  local exceptions = self.db.global.exceptions
+  for k,v in pairs(exceptions) do
+    if v == name or v == link then
+      return
     end
   end
+
+  -- append name of the item to global exception list
+  exceptions[#exceptions + 1] = name
+  self:Print(L["Added"] .. ": " .. link)
 end
 
-function addon:Rem(link, global)
-	local found = false
-	local exception = nil
-
+function addon:Rem(link)
 	-- remove all trailing whitespace
 	link = strtrim(link)
 
@@ -228,75 +206,34 @@ function addon:Rem(link, global)
 		name = link
 	end
 
-	if global then
+  -- looping through exceptions
+  local found = false
+  local exception
+  local exceptions = self.db.global.exceptions
+  for k,v in pairs(exceptions) do
+    -- comparing exception list entry with given name
+    if v:lower() == name:lower() then
+      found = true
+    end
 
-		-- looping through global exceptions
-		for k,v in pairs(self.db.global.exceptions) do
-			-- comparing exception list entry with given name
-			if v:lower() == name:lower() then
-				found = true
-			end
+    -- extract name from itemlink (only for compatibility with old saved variables)
+    isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
+    if isLink then
+      -- comparing exception list entry with given name
+      if exception:lower() == name:lower() then
+        found = true
+      end
+    end
 
-			-- extract name from itemlink (only for compatibility with old saved variables)
-			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
-			if isLink then
-				-- comparing exception list entry with given name
-				if exception:lower() == name:lower() then
-					found = true
-				end
-			end
-
-			if found then
-				if self.db.global.exceptions[k+1] then
-					self.db.global.exceptions[k] = self.db.global.exceptions[k+1]
-				else
-					self.db.global.exceptions[k] = nil
-				end
-			end
-		end
-
-		if found then
-			if ( GetLocale() == "koKR" ) then
-				self:Print(link.."|1이;가; "..L["GLOBAL_EXC"]..L["FROM"] .." "..L["REMOVED"])
-			else
-				self:Print(L["REMOVED"].." "..link.." "..L["FROM"].." "..L["GLOBAL_EXC"])
-			end
-		end
-	else
-
-		-- looping through character specific exceptions
-		for k,v in pairs(self.db.char.exceptions) do
-			-- comparing exception list entry with given name
-			if v:lower() == name:lower() then
-				found = true
-			end
-
-			-- extract name from itemlink (only for compatibility with old saved variables)
-			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
-			if isLink then
-				-- comparing exception list entry with given name
-				if exception:lower() == name:lower() then
-					found = true
-				end
-			end
-
-			if found then
-				if self.db.char.exceptions[k+1] then
-					self.db.char.exceptions[k] = self.db.char.exceptions[k+1]
-				else
-					self.db.char.exceptions[k] = nil
-				end
-			end
-		end
-
-		if found then
-			if ( GetLocale() == "koKR" ) then
-				self:Print(link.."|1이;가; "..L["CHAR_EXC"]..L["FROM"] .." "..L["REMOVED"]) 
-			else
-				self:Print(L["REMOVED"].." "..link..L["FROM"].." "..L["CHAR_EXC"])
-			end
-		end
-	end
+    if found then
+      if exceptions[k + 1] then
+        exceptions[k] = exceptions[k + 1]
+      else
+        exceptions[k] = nil
+      end
+      self:Print(L["Removed"]..": "..link)
+    end
+  end
 end
 
 function addon:isException(link)
@@ -310,10 +247,11 @@ function addon:isException(link)
 		name = link
 	end
 
-	if self.db.global.exceptions then
+  local exceptions = self.db.global.exceptions
+	if exceptions then
 
 		-- looping through global exceptions
-		for k,v in pairs(self.db.global.exceptions) do
+		for k,v in pairs(exceptions) do
 
 			-- comparing exception list entry with given name
 			if v:lower() == name:lower() then
@@ -331,40 +269,13 @@ function addon:isException(link)
 		end
 	end
 
-
-	if self.db.char.exceptions then
-
-		-- looping through character specific eceptions
-		for k,v in pairs(self.db.char.exceptions) do
-
-			-- comparing exception list entry with given name
-			if v:lower() == name:lower() then
-        return true
-      end
-
-			-- extract name from itemlink (only for compatibility with old saved variables)
-			isLink, _, exception = string_find(v, "^|c%x+|H.+|h.(.*)\].+")
-			if isLink then
-				-- comparing exception list entry with given name
-				if exception:lower() == name:lower() then
-					return true
-				end
-			end
-		end
-	end
-
-	-- item not found in any exception list
+	-- item not found in exception list
 	return false
 end
 
-function addon:ClearGlobalDB()
+function addon:ClearDB()
   wipe(self.db.global.exceptions)
-  self:Print(L["CLEARED"])
-end
-
-function addon:ClearCharDB()
-  wipe(self.db.char.exceptions)
-  self:Print(L["CLEARED"])
+  self:Print(L["Exceptions succesfully cleared."])
 end
 
 function addon:HandleSlashCommands(input)
@@ -373,13 +284,13 @@ function addon:HandleSlashCommands(input)
     self:Destroy(arg2)
   elseif arg1 == 'add' and arg2 ~= nil then
     if arg2:find('|Hitem') == nil then
-      self:Print(L["ITEMLINK_ONLY"])
+      self:Print(L["Command accepts only itemlinks."])
     else
       self:Add(arg2, true)
     end
-  elseif arg1 == 'rem' and arg2 ~= nil then
+  elseif (arg1 == 'rem' or arg1 == 'remove') and arg2 ~= nil then
     if arg2:find('|Hitem') == nil then
-      self:Print(L["ITEMLINK_ONLY"])
+      self:Print(L["Command accepts only itemlinks."])
     else
       self:Rem(arg2, true)
     end
@@ -408,8 +319,8 @@ function addon:PopulateOptions()
 						auto = {
 							order	= 2,
 							type 	= "toggle",
-							name 	= L["AUTO_SELL"],
-							desc 	= L["AUTO_SELL_DESC"],
+							name 	= L["Automatically sell junk"],
+							desc 	= L["Toggles the automatic selling of junk when the merchant window is opened."],
 							get 	= function() return addon.db.char.auto end,
 							set 	= function() self.db.char.auto = not self.db.char.auto end,
 						},
@@ -422,8 +333,8 @@ function addon:PopulateOptions()
 						max12 = {
 							order = 4,
 							type  = "toggle",
-							name  = L["MAX12"],
-							desc  = L["MAX12_DESC"],
+							name  = L["Sell max. 12 items"],
+							desc  = L["This is failsafe mode. Will sell only 12 items in one pass. In case of an error, all items can be bought back from vendor."],
 							get 	= function() return addon.db.char.max12 end,
 							set 	= function() self.db.char.max12 = not self.db.char.max12 end,
 						},
@@ -435,8 +346,8 @@ function addon:PopulateOptions()
 						printGold = {
 							order = 6,
 							type  = "toggle",
-							name  = L["SHOW_GAIN"],
-							desc  = L["SHOW_GAIN_DESC"],
+							name  = L["Show gold gained"],
+							desc  = L["Shows gold gained from selling trash."],
 							get 	= function() return addon.db.char.printGold end,
 							set 	= function() self.db.char.printGold = not self.db.char.printGold end,
 						},
@@ -448,29 +359,22 @@ function addon:PopulateOptions()
             showSpam = {
               order = 8,
               type  = "toggle",
-              name  = L["SHOW_SPAM"],
-              desc  = L["SHOW_SPAM_DESC"],
+              name  = L["Show 'item sold' spam"],
+              desc  = L["Prints itemlinks to chat, when automatically selling items."],
               get   = function() return addon.db.char.showSpam end,
               set   = function() addon.db.char.showSpam = not addon.db.char.showSpam end,
             },
 						divider5 = {
 							order	= 9,
 							type	= "header",
-							name	= L["CLEAR_HEADER"],
+							name	= L["Clear exceptions"],
 						},
 						clearglobal = {
 							order	= 10,
 							type 	= "execute",
-							name 	= L["CLEAR_GLOBAL"],
-              desc  = L["CLEAR_GLOBAL_DESC"],
-							func 	= function() addon:ClearGlobalDB() end,
-						},
-            clearchar = {
-							order	= 11,
-							type 	= "execute",
-							name 	= L["CLEAR_CHAR"],
-              desc  = L["CLEAR_CHAR_DESC"],
-							func 	= function() addon:ClearCharDB() end,
+							name 	= L["Clear"],
+              desc  = L["Removes all exceptions."],
+							func 	= function() addon:ClearDB() end,
 						},
 						divider6 = {
 							order	= 12,
@@ -480,53 +384,30 @@ function addon:PopulateOptions()
 						header1 = {
 							order	= 13,
 							type	= "header",
-							name	= L["GLOBAL_EXC"],
+							name	= L["Exceptions"],
 						},
 						note1 = {
 							order = 14,
 							type 	= "description",
-							name	= L["DRAG_ITEM_DESC"],
+							name	= L["Drag item into this window to add/remove it from exception list"],
 						},
 						add = {
 							order	= 15,
 							type 	= "input",
-							name 	= L["ADD_ITEM"],
-							desc 	= L["ADD"].." "..L["ALL_CHARS"],
-							usage = L["ITEMLINK"],
+							name 	= L["Add item"]..':',
+							desc 	= L["Add"],
+							usage = L["<Item Link>"],
 							get 	= false,
-							set 	= function(info, v) addon:Add(v, true) end,
+							set 	= function(info, v) addon:Add(v) end,
 						},
 						rem = {
 							order	= 16,
 							type 	= "input",
-							name 	= L["REM_ITEM"],
-							desc 	= L["REM"].." "..L["ALL_CHARS"],
-							usage 	= L["ITEMLINK"],
+							name 	= L["Remove item"]..':',
+							desc 	= L["Remove"],
+							usage 	= L["<Item Link>"],
 							get 	= false,
-							set 	= function(info, v) addon:Rem(v, true) end,
-						},
-						header2 = {
-							order	= 17,
-							type	= "header",
-							name	= L["CHAR_EXC"],
-						},
-						addMe = {
-							order	= 18,
-							type 	= "input",
-							name 	= L["ADD_ITEM"],
-							desc 	= L["ADD"].." "..L["THIS_CHAR"],
-							usage 	= L["ITEMLINK"],
-							get 	= false,
-							set 	= function(info, v) addon:Add(v, false) end,
-						},
-						remMe = {
-							order	= 19,
-							type 	= "input",
-							name 	= L["REM_ITEM"],
-							desc 	= L["REM"].." "..L["THIS_CHAR"],
-							usage 	= L["ITEMLINK"],
-							get 	= false,
-							set 	= function(info, v) addon:Rem(v, false) end,
+							set 	= function(info, v) addon:Rem(v) end,
 						},
 					}
 				}
