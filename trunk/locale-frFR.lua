@@ -1,4 +1,4 @@
-if GetLocale() == "deDE" then
+if GetLocale() == "frFR" then
   local addonName, addonTable = ...
   local L = addonTable.L
 

@@ -74,26 +74,28 @@ end
 function addon:Sell()
 	local limit = 0
   local currPrice
+  local showSpam = addon.db.char.showSpam
+  local max12 = addon.db.char.max12
 
   for bag = 0,4 do
     for slot = 1,GetContainerNumSlots(bag) do
       local item = GetContainerItemLink(bag,slot)
       if item then
 				-- is it grey quality item?
-        local found = string_find(item,"|cff9d9d9d")
+        local grey = string_find(item,"|cff9d9d9d")
 
-        if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
+        if (grey and (not addon:isException(item))) or ((not grey) and (addon:isException(item))) then
           currPrice = select(11, GetItemInfo(item)) * select(2, GetContainerItemInfo(bag, slot))
           -- this should get rid of problems with grey items, that cant be sell to a vendor
           if currPrice > 0 then
             addon:AddProfit(currPrice)
             PickupContainerItem(bag, slot)
             PickupMerchantItem()
-            if addon.db.char.showSpam then
+            if showSpam then
               self:Print(L["Sold"]..": "..item)
             end
 
-            if addon.db.char.max12 then
+            if max12 then
               limit = limit + 1
               if limit == 12 then
                 return
@@ -121,17 +123,20 @@ function addon:Destroy(count)
   if count ~= nil then
     limit = count
   end
+
+  local showSpam = addon.db.char.showSpam
+
   for bag = 0,4 do
     for slot = 1,GetContainerNumSlots(bag) do
       local item = GetContainerItemLink(bag,slot)
       if item then
 				-- is it grey quality item?
-        local found = string_find(item,"|cff9d9d9d")
+        local grey = string_find(item,"|cff9d9d9d")
 
-        if ((found) and (not addon:isException(item))) or ((not found) and (addon:isException(item))) then
+        if (grey and (not addon:isException(item))) or ((not grey) and (addon:isException(item))) then
           PickupContainerItem(bag, slot)
 					DeleteCursorItem()
-          if addon.db.char.showSpam then
+          if showSpam then
             self:Print(L["Destroyed"]..": "..item)
           end
           limit = limit - 1
@@ -211,6 +216,7 @@ function addon:Rem(link)
   local exception
   local exceptions = self.db.global.exceptions
   for k,v in pairs(exceptions) do
+    found = false
     -- comparing exception list entry with given name
     if v:lower() == name:lower() then
       found = true
@@ -232,6 +238,7 @@ function addon:Rem(link)
         exceptions[k] = nil
       end
       self:Print(L["Removed"]..": "..link)
+      break
     end
   end
 end
