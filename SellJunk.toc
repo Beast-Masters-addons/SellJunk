@@ -1,4 +1,5 @@
 ## Interface: 30300
+## X-Compatible-With: 40000
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Author: CrazyBenny of Stormrage-EU
