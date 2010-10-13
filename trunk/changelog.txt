@@ -1,6 +1,7 @@
 3.0:
   - Rewritten to improve performance
   - feature: merged global and character exceptions into single list
+  - update: updated for patch 4.0.1
 
 2.6.3:
   - feature: added commands '/sj add <itemlink>' and '/sj rem <itemlink>', that will add/remove given item to global exceptions
