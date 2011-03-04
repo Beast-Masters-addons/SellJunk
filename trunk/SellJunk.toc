@@ -2,7 +2,7 @@
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Author: CrazyBenny of Stormrage-EU
-## X-Email: s_m AT centrum DOT cz
+## X-Email: cbenneh AT gmail DOT com
 ## LastUpdate: @project-date-iso@
 ## Version: @project-version@
 
