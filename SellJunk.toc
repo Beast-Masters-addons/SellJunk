@@ -1,6 +1,8 @@
 ## Interface: 40100
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
+## Notes-zhTW: 一次販售掉你背包內的垃圾物品。
+## Notes-zhCN: 一次贩卖掉你背包内的垃圾物品。
 ## Author: CrazyBenny of Stormrage-EU
 ## X-Email: cbenneh AT gmail DOT com
 ## LastUpdate: @project-date-iso@
