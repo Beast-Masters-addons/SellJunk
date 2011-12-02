@@ -1,4 +1,4 @@
-## Interface: 40200
+## Interface: 40300
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Notes-zhTW: 一次販售掉你背包內的垃圾物品。
