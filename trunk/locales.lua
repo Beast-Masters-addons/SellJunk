@@ -2,84 +2,58 @@ local addonName, addonTable = ...
 local L = {}
 addonTable.L = L
 
-L["Added"] = "Added"
-L["Add item"] = "Add item"
-L["Automatically sell junk"] = "Automatically sell junk"
-L["Clear"] = "Clear"
-L["Clear exceptions"] = "Clear exceptions"
-L["Command accepts only itemlinks."] = "Command accepts only itemlinks."
-L["copper"] = "copper"
-L["Destroyed"] = "Destroyed"
-L["Drag item into this window to add/remove it from exception list"] = "Drag item into this window to add/remove it from exception list"
-L["Exceptions"] = "Exceptions"
-L["Exceptions succesfully cleared."] = "Exceptions succesfully cleared."
-L["Gained"] = "Gained"
-L["gold"] = "gold"
-L["<Item Link>"] = "<Item Link>"
-L["Prints itemlinks to chat, when automatically selling items."] = "Prints itemlinks to chat, when automatically selling items."
-L["Removed"] = "Removed"
-L["Remove item"] = "Remove item"
-L["Removes all exceptions."] = "Removes all exceptions."
-L["Sell Junk"] = "Sell Junk"
-L["Sell max. 12 items"] = "Sell max. 12 items"
-L["Show gold gained"] = "Show gold gained"
-L["Show 'item sold' spam"] = "Show 'item sold' spam"
-L["Shows gold gained from selling trash."] = "Shows gold gained from selling trash."
-L["silver"] = "silver"
-L["Sold"] = "Sold"
-L["This is failsafe mode. Will sell only 12 items in one pass. In case of an error, all items can be bought back from vendor."] = "This is failsafe mode. Will sell only 12 items in one pass. In case of an error, all items can be bought back from vendor."
-L["Toggles the automatic selling of junk when the merchant window is opened."] = "Toggles the automatic selling of junk when the merchant window is opened."
+--@localization(locale="enUS", format="lua_additive_table")@
 
 if GetLocale() == "ptBR" then
 
---@localization(locale="ptBR", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="ptBR", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "frFR" then
 
---@localization(locale="deDE", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="frFR", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "deDE" then
 
---@localization(locale="deDE", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="deDE", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "koKR" then
 
---@localization(locale="koKR", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="koKR", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "esMX" then
 
---@localization(locale="esMX", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="esMX", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "ruRU" then
 
---@localization(locale="ruRU", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="ruRU", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "zhCN" then
 
---@localization(locale="zhCN", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="zhCN", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "esES" then
 
---@localization(locale="esES", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="esES", format="lua_additive_table")@
 
 end
 
 if GetLocale() == "zhTW" then
 
---@localization(locale="zhTW", format="lua_additive_table", handle-unlocalized="english")@
+--@localization(locale="zhTW", format="lua_additive_table")@
 
 end
