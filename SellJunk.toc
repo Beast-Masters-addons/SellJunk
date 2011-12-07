@@ -23,4 +23,4 @@ libs\AceGUI-3.0\AceGUI-3.0.xml
 libs\AceConfig-3.0\AceConfig-3.0.xml
 
 locales.lua
-selljunk.lua
+SellJunk.lua
