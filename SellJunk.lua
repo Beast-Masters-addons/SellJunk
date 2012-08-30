@@ -10,7 +10,7 @@ addon.optionsFrame = {}
 local options = nil
 
 addon.sellButton = CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
-addon.sellButton:SetPoint("TOPRIGHT", -41, -40)
+addon.sellButton:SetPoint("TOPLEFT",60, -32)
 addon.sellButton:SetText(L["Sell Junk"])
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
