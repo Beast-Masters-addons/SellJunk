@@ -5,6 +5,7 @@ local AceConfigDialog = LibStub("AceConfigDialog-3.0")
 
 local addonName, addonTable = ...
 local L = addonTable.L
+local _
 
 addon.optionsFrame = {}
 local options = nil
