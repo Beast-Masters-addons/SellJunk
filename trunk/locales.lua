@@ -22,6 +22,12 @@ if GetLocale() == "deDE" then
 
 end
 
+if GetLocale() == "itIT" then
+
+--@localization(locale="itIT", format="lua_additive_table")@
+
+end
+
 if GetLocale() == "koKR" then
 
 --@localization(locale="koKR", format="lua_additive_table")@
