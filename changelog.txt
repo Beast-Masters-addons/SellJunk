@@ -1,3 +1,6 @@
+3.0.6:
+  - update: added Italian translation
+
 3.0.5:
   - update: updated for patch 5.0.4
 
