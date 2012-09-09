@@ -11,7 +11,13 @@ addon.optionsFrame = {}
 local options = nil
 
 addon.sellButton = CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
-addon.sellButton:SetPoint("TOPLEFT",60, -32)
+
+if IsAddOnLoaded("GnomishVendorShrinker") then
+  addon.sellButton:SetPoint("BOTTOMLEFT", 5, 4)
+else
+  addon.sellButton:SetPoint("TOPLEFT", 60, -32)
+end
+
 addon.sellButton:SetText(L["Sell Junk"])
 addon.sellButton:SetScript("OnClick", function() SellJunk:Sell() end)
 
