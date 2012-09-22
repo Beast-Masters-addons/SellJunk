@@ -1,3 +1,6 @@
+3.0.8:
+  - update: when GnomishVendorShrinker is loaded, put SellJunk button to top right corner (hopefully nothing can ever be there!)
+
 3.0.7:
   - update: when GnomishVendorShrinker is loaded, put SellJunk button to bottom left corner
 
