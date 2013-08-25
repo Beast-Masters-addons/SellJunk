@@ -1,3 +1,6 @@
+3.0.9:
+  - update: updated for patch 5.3
+
 3.0.8:
   - update: when GnomishVendorShrinker is loaded, put SellJunk button to top right corner (hopefully nothing can ever be there!)
 
