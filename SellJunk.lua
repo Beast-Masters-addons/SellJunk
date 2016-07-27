@@ -166,7 +166,7 @@ end
 
 function addon:PrintGold()
   if self.total > 0 then
-		self:Print(date("[%H:%M:%S]"),L["Gained"]..": "..GetMoneyString(self.total))
+		self:Print(L["Gained"]..": "..GetMoneyString(self.total))
 	end
 end
 
