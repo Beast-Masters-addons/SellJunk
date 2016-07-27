@@ -61,7 +61,7 @@ function addon:OnEnable()
 	self.total = 0
 end
 
-function addon:MERCHANT_SHOW()	
+function addon:MERCHANT_SHOW()
   if addon.db.char.auto then
     self:Sell()
   end
@@ -165,19 +165,8 @@ function addon:Destroy(count)
 end
 
 function addon:PrintGold()
-	local ret = ""
-	local gold = floor(self.total / (COPPER_PER_SILVER * SILVER_PER_GOLD));
-	local silver = floor((self.total - (gold * COPPER_PER_SILVER * SILVER_PER_GOLD)) / COPPER_PER_SILVER);
-	local copper = mod(self.total, COPPER_PER_SILVER);
-	if gold > 0 then
-		ret = gold.." "..L["gold"].." "
-	end
-	if silver > 0 or gold > 0 then
-		ret = ret..silver .." "..L["silver"].." "
-	end
-	ret = ret..copper.." "..L["copper"]
-	if silver > 0 or gold > 0  or copper > 0 then
-		self:Print(L["Gained"]..": "..ret)
+  if self.total > 0 then
+		self:Print(date("[%H:%M:%S]"),L["Gained"]..": "..GetMoneyString(self.total))
 	end
 end
 
