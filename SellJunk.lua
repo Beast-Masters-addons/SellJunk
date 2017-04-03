@@ -92,7 +92,7 @@ function addon:Sell()
         local grey = string_find(item,"|cff9d9d9d")
 
         if (grey and (not addon:isException(item))) or ((not grey) and (addon:isException(item))) then
-          currPrice = select(11, GetItemInfo(item)) * select(2, GetContainerItemInfo(bag, slot))
+          currPrice = (select(11, GetItemInfo(item)) or 0) * select(2, GetContainerItemInfo(bag, slot))
           -- this should get rid of problems with grey items, that cant be sell to a vendor
           if currPrice > 0 then
             addon:AddProfit(currPrice)
