@@ -1,3 +1,6 @@
+3.0.17:
+  - update: fixes for 8.0
+
 3.0.16:
   - update: updated for 8.0
 
