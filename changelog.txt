@@ -1,3 +1,6 @@
+3.0.19:
+  - re-release due to packaging problem
+
 3.0.18:
   - update: updated for 8.1
 
