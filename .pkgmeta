@@ -13,6 +13,5 @@ externals:
 ignore:
   - .pkgmeta
 
-manual-changelog: changelog.txt
-
 enable-nolib-creation: no
+enable-toc-creation: yes
