@@ -15,6 +15,7 @@
 
 ## SavedVariables: SellJunkDB
 ## X-Curse-Project-ID: 14628
+## X-WoWI-ID: 26443
 ## X-Wago-ID: anKWWqKE
 
 libs\LibStub\LibStub.lua
