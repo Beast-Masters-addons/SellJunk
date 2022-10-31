@@ -15,6 +15,7 @@
 
 ## SavedVariables: SellJunkDB
 ## X-Curse-Project-ID: 14628
+## X-Wago-ID: anKWWqKE
 
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
