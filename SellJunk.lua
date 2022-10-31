@@ -10,7 +10,12 @@ local _
 addon.optionsFrame = {}
 local options = nil
 
-addon.sellButton = CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
+if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE then
+	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "UIPanelButtonTemplate")
+	addon.sellButton:SetSize(80, 22)
+else
+	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
+end
 
 if IsAddOnLoaded("GnomishVendorShrinker") then
   addon.sellButton:SetPoint("TOPRIGHT", -23, 0)
