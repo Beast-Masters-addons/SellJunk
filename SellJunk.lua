@@ -9,12 +9,20 @@ local _
 
 addon.optionsFrame = {}
 local options = nil
+local is_classic = _G.WOW_PROJECT_ID ~= _G.WOW_PROJECT_MAINLINE
 
-if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_MAINLINE then
+---@type BMUtils
+local utils, minor = _G.LibStub('BM-utils-1')
+assert(minor >= 8, ('BMUtils 1.8 or higher is required, found 1.%d'):format(minor))
+
+local C_Container
+if not is_classic then
 	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "UIPanelButtonTemplate")
 	addon.sellButton:SetSize(80, 22)
+	C_Container = _G.C_Container
 else
 	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
+	C_Container = utils.container
 end
 
 if IsAddOnLoaded("GnomishVendorShrinker") then
@@ -33,9 +41,8 @@ local string_find = string.find
 local pairs = pairs
 local wipe = wipe
 local DeleteCursorItem = DeleteCursorItem
-local GetContainerItemInfo = GetContainerItemInfo
 local GetItemInfo = GetItemInfo
-local PickupContainerItem = PickupContainerItem
+local PickupContainerItem = _G.C_Container.PickupContainerItem
 local PickupMerchantItem = PickupMerchantItem
 
 
@@ -90,21 +97,21 @@ function addon:Sell()
   local max12 = addon.db.char.max12
 
   for bag = 0,4 do
-    for slot = 1,GetContainerNumSlots(bag) do
-      local item = GetContainerItemLink(bag,slot)
+    for slot = 1,C_Container.GetContainerNumSlots(bag) do
+      local item = C_Container.GetContainerItemInfo(bag, slot)
       if item then
 				-- is it grey quality item?
-        local grey = string_find(item,"|cff9d9d9d")
+        local grey = item['quality'] == 0
 
         if (grey and (not addon:isException(item))) or ((not grey) and (addon:isException(item))) then
-          currPrice = (select(11, GetItemInfo(item)) or 0) * select(2, GetContainerItemInfo(bag, slot))
+          currPrice = (select(11, GetItemInfo(item['hyperlink'])) or 0) * item['stackCount']
           -- this should get rid of problems with grey items, that cant be sell to a vendor
           if currPrice > 0 then
             addon:AddProfit(currPrice)
             PickupContainerItem(bag, slot)
             PickupMerchantItem()
             if showSpam then
-              self:Print(L["Sold"]..": "..item)
+              self:Print(L["Sold"]..": ".. item['hyperlink'])
             end
 
             if max12 then
@@ -135,6 +142,10 @@ function addon:Destroy(count)
   if count ~= nil then
     limit = count
   end
+	if not is_classic then
+		limit = 1
+		self:Print('Only 1 item stack can be destroyed at the time')
+	end
 
   local showSpam = addon.db.char.showSpam
 
@@ -143,13 +154,13 @@ function addon:Destroy(count)
       local item = GetContainerItemLink(bag,slot)
       if item then
 				-- is it grey quality item?
-        local grey = string_find(item,"|cff9d9d9d")
+        local grey = item['quality'] == 0
 
         if (grey and (not addon:isException(item))) or ((not grey) and (addon:isException(item))) then
           PickupContainerItem(bag, slot)
 					DeleteCursorItem()
           if showSpam then
-            self:Print(L["Destroyed"]..": "..item)
+            self:Print(L["Destroyed"]..": "..item['hyperlink'])
           end
           limit = limit - 1
           if limit == 0 then
@@ -244,8 +255,9 @@ function addon:Rem(link)
   end
 end
 
-function addon:isException(link)
+function addon:isException(item)
 	local exception = nil
+	local link = item['hyperlink']
 
 	-- extracting name of an item from the itemlink
 	local isLink, _, name = string_find(link, "^|c%x+|H.+|h.(.*)\].+")
