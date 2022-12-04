@@ -99,7 +99,7 @@ function addon:Sell()
   for bag = 0,4 do
     for slot = 1,C_Container.GetContainerNumSlots(bag) do
       local item = C_Container.GetContainerItemInfo(bag, slot)
-      if item then
+      if item['hyperlink'] then
 				-- is it grey quality item?
         local grey = item['quality'] == 0
 
@@ -152,7 +152,7 @@ function addon:Destroy(count)
   for bag = 0,4 do
     for slot = 1, C_Container.GetContainerNumSlots(bag) do
       local item = C_Container.GetContainerItemInfo(bag, slot)
-      if item then
+      if item['hyperlink'] then
 				-- is it grey quality item?
         local grey = item['quality'] == 0
 
