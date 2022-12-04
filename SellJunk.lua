@@ -150,8 +150,8 @@ function addon:Destroy(count)
   local showSpam = addon.db.char.showSpam
 
   for bag = 0,4 do
-    for slot = 1,GetContainerNumSlots(bag) do
-      local item = GetContainerItemLink(bag,slot)
+    for slot = 1, C_Container.GetContainerNumSlots(bag) do
+      local item = C_Container.GetContainerItemInfo(bag, slot)
       if item then
 				-- is it grey quality item?
         local grey = item['quality'] == 0
