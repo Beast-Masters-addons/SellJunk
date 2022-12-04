@@ -42,7 +42,7 @@ local pairs = pairs
 local wipe = wipe
 local DeleteCursorItem = DeleteCursorItem
 local GetItemInfo = GetItemInfo
-local PickupContainerItem = _G.C_Container.PickupContainerItem
+local PickupContainerItem = C_Container.PickupContainerItem
 local PickupMerchantItem = PickupMerchantItem
 
 
