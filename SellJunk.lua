@@ -19,10 +19,14 @@ local C_Container
 if not is_classic then
 	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "UIPanelButtonTemplate")
 	addon.sellButton:SetSize(80, 22)
-	C_Container = _G.C_Container
 else
 	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
-	C_Container = utils.container
+end
+
+if _G.WOW_PROJECT_ID == _G.WOW_PROJECT_CLASSIC then
+    C_Container = utils.container
+else
+    C_Container = _G.C_Container
 end
 
 if IsAddOnLoaded("GnomishVendorShrinker") then
