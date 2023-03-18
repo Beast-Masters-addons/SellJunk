@@ -1,6 +1,6 @@
-## Interface: 100002
+## Interface: 100005
 ## Interface-Classic: 11403
-## Interface-Wrath: 30400
+## Interface-Wrath: 30401
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Notes-zhTW: 一次販售掉你背包內的垃圾物品。
