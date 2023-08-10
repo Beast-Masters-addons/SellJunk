@@ -6,7 +6,7 @@
 ## Notes-zhTW: 一次販售掉你背包內的垃圾物品。
 ## Notes-zhCN: 一次贩卖掉你背包内的垃圾物品。
 ## Author: CrazyBenny of Stormrage-EU / datagutten
-## X-Email: cbenneh AT gmail DOT com
+## X-URL: https://github.com/Beast-Masters-addons/SellJunk
 ## LastUpdate: @project-date-iso@
 ## Version: @project-version@
 
