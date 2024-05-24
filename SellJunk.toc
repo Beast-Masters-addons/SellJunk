@@ -1,5 +1,5 @@
 ## Interface: 100105
-## Interface-Classic: 11403
+## Interface-Classic: 11502
 ## Interface-Cata: 40400
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
