@@ -23,6 +23,7 @@ else
 	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "OptionsButtonTemplate")
 end
 
+local IsAddOnLoaded = _G.IsAddOnLoaded or (_G.C_AddOns and _G.C_AddOns.IsAddOnLoaded)
 if IsAddOnLoaded("GnomishVendorShrinker") then
   addon.sellButton:SetPoint("TOPRIGHT", -23, 0)
 else
