@@ -16,7 +16,7 @@ local utils, minor = _G.LibStub('BM-utils-1')
 assert(minor >= 8, ('BMUtils 1.8 or higher is required, found 1.%d'):format(minor))
 
 local C_Container = _G.C_Container
-if not is_classic then
+if not _G.WOW_PROJECT_ID ~= _G.WOW_PROJECT_WRATH_CLASSIC then
 	addon.sellButton = _G.CreateFrame("Button", nil, MerchantFrame, "UIPanelButtonTemplate")
 	addon.sellButton:SetSize(80, 22)
 else

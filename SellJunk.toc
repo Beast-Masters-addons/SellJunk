@@ -1,4 +1,4 @@
-## Interface: 110002, 40400, 30300, 11503
+## Interface: 110005, 40401, 30300, 11504
 ## Title: SellJunk
 ## Notes: Sells all junk in your inventory at once.
 ## Notes-zhTW: 一次販售掉你背包內的垃圾物品。
@@ -16,6 +16,7 @@
 ## X-WoWI-ID: 26443
 ## X-Wago-ID: anKWWqKE
 
+#@no-lib-strip@
 libs\LibStub\LibStub.lua
 libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
 libs\AceAddon-3.0\AceAddon-3.0.xml
@@ -25,6 +26,7 @@ libs\AceConsole-3.0\AceConsole-3.0.xml
 libs\AceGUI-3.0\AceGUI-3.0.xml
 libs\AceConfig-3.0\AceConfig-3.0.xml
 libs\BM-utils\lib.xml
+#@end-no-lib-strip@
 
 locales.lua
 SellJunk.lua
