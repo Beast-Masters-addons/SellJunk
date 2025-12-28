@@ -143,7 +143,7 @@ function addon:Destroy(count)
   end
 	if not is_classic then
 		limit = 1
-		self:Print('Only 1 item stack can be destroyed at the time')
+		self:Print(L["Only 1 item stack can be destroyed at the time"])
 	end
 
   local showSpam = addon.db.char.showSpam
