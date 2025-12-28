@@ -27,11 +27,12 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: WoW Packager
-        uses: BigWigsMods/packager@v2.4.3
+        uses: BigWigsMods/packager@v2
         with:
           args: -L
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         with:
-          name: SellJunk
-          path: .release
+          name: SellJunk-${{ github.head_ref || github.ref_name }}
+          path: ${{ github.workspace }}/.release
+          include-hidden-files: true
