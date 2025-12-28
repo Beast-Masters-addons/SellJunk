@@ -370,19 +370,19 @@ function addon:PopulateOptions()
 							get 	= function() return addon.db.char.printGold end,
 							set 	= function() self.db.char.printGold = not self.db.char.printGold end,
 						},
-            divider4 = {
-							order	= 7,
-							type	= "description",
-							name	= "",
-						},
-            showSpam = {
-              order = 8,
-              type  = "toggle",
-              name  = L["Show 'item sold' spam"],
-              desc  = L["Prints itemlinks to chat, when automatically selling items."],
-              get   = function() return addon.db.char.showSpam end,
-              set   = function() addon.db.char.showSpam = not addon.db.char.showSpam end,
-            },
+                        divider4 = {
+                            order	= 7,
+                            type	= "description",
+                            name	= "",
+                        },
+                        showSpam = {
+                            order = 8,
+                            type  = "toggle",
+                            name  = L["Show 'item sold' spam"],
+                            desc  = L["Prints itemlinks to chat, when automatically selling items."],
+                            get   = function() return addon.db.char.showSpam end,
+                            set   = function() addon.db.char.showSpam = not addon.db.char.showSpam end,
+                        },
 						divider5 = {
 							order	= 9,
 							type	= "header",
