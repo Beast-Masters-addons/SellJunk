@@ -12,7 +12,7 @@
 ## X-Category: Inventory
 
 ## SavedVariables: SellJunkDB
-## X-Curse-Project-ID: 14628
+## X-Curse-Project-ID: 1458545
 ## X-WoWI-ID: 26443
 ## X-Wago-ID: anKWWqKE
 
