@@ -3,13 +3,23 @@
 ## Notes: Sells all junk in your inventory at once.
 ## Notes-zhTW: 一次販售掉你背包內的垃圾物品。
 ## Notes-zhCN: 一次贩卖掉你背包内的垃圾物品。
+## Category: Inventory
+## Category-deDE: Inventar
+## Category-esES: Inventario
+## Category-esMX: Inventario
+## Category-frFR: Inventaire
+## Category-itIT: Inventario
+## Category-koKR: 소지품
+## Category-ptBR: Inventário
+## Category-ruRU: Инвентарь
+## Category-zhCN: 物品栏
+## Category-zhTW: 物品欄
 ## Author: CrazyBenny of Stormrage-EU / datagutten
 ## X-URL: https://github.com/Beast-Masters-addons/SellJunk
 ## LastUpdate: @project-date-iso@
 ## Version: @project-version@
 
 ## X-Credits: Xonpathos for previous version of SellJunk
-## X-Category: Inventory
 
 ## SavedVariables: SellJunkDB
 ## X-Curse-Project-ID: 1458545
