@@ -12,6 +12,7 @@ externals:
 
 ignore:
   - libs/LibStub/tests
+  - locale-po
 
 enable-nolib-creation: yes
 enable-toc-creation: no

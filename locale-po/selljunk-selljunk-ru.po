@@ -1,0 +1,123 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Russian (SellJunk)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 14:31+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Russian <https://weblate.quadduo.net/projects/selljunk/"
+"selljunk/ru/>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Weblate 2026.10.1\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+msgctxt "Sell Junk"
+msgid "Sell Junk"
+msgstr "Продать хлам"
+
+msgctxt "Sold"
+msgid "Sold"
+msgstr "Продано"
+
+msgctxt "Only 1 item stack can be destroyed at the time"
+msgid "Only 1 item stack can be destroyed at the time"
+msgstr ""
+
+msgctxt "Destroyed"
+msgid "Destroyed"
+msgstr "Уничтожено"
+
+msgctxt "Gained"
+msgid "Gained"
+msgstr "Выручка"
+
+msgctxt "Added"
+msgid "Added"
+msgstr "Добавлено"
+
+msgctxt "Removed"
+msgid "Removed"
+msgstr "Убрано"
+
+#, fuzzy
+msgctxt "Exceptions succesfully cleared."
+msgid "Exceptions successfully cleared."
+msgstr "Исключения успешно очищены."
+
+msgctxt "Command accepts only itemlinks."
+msgid "Command accepts only itemlinks."
+msgstr "Принимаются только прямые ссылки на предметы."
+
+msgctxt "Automatically sell junk"
+msgid "Automatically sell junk"
+msgstr "Продавать \\"
+
+msgctxt ""
+"Toggles the automatic selling of junk when the merchant window is opened."
+msgid ""
+"Toggles the automatic selling of junk when the merchant window is opened."
+msgstr "Включить или отключить автоматическую продажу мусора при открытии окна торговли."
+
+msgctxt "Sell max. 12 items"
+msgid "Sell max. 12 items"
+msgstr "Продавать не более 12 предметов"
+
+msgctxt ""
+"This is failsafe mode. Will sell only 12 items in one pass. In case of an "
+"error, all items can be bought back from vendor."
+msgid ""
+"This is failsafe mode. Will sell only 12 items in one pass. In case of an "
+"error, all items can be bought back from vendor."
+msgstr "Безопасный режим. Продает не более 12 предметов. В случае ошибки, любой из предметов может быть выкуплен у продавца обратно."
+
+msgctxt "Show gold gained"
+msgid "Show gold gained"
+msgstr "Показывать выручку"
+
+msgctxt "Shows gold gained from selling trash."
+msgid "Shows gold gained from selling trash."
+msgstr "Показывает выручку с продажи мусора."
+
+msgctxt "Show 'item sold' spam"
+msgid "Show 'item sold' spam"
+msgstr "Показывать сообщения \\"
+
+msgctxt "Prints itemlinks to chat, when automatically selling items."
+msgid "Prints itemlinks to chat, when automatically selling items."
+msgstr "Выводит прямые ссылки на предметы в чат во время автоматической продажи предметов."
+
+msgctxt "Clear exceptions"
+msgid "Clear exceptions"
+msgstr "Очистить исключения"
+
+msgctxt "Clear"
+msgid "Clear"
+msgstr "Очистить список исключений"
+
+msgctxt "Removes all exceptions."
+msgid "Removes all exceptions."
+msgstr "Убирает все исключения из общего списка."
+
+msgctxt "Exceptions"
+msgid "Exceptions"
+msgstr "Общие исключения"
+
+msgctxt "Drag item into this window to add/remove it from exception list"
+msgid "Drag item into this window to add/remove it from exception list"
+msgstr "Перетащите предмет в это окошко, чтобы добавить или удалить его из списка исключений"
+
+msgctxt "Add item"
+msgid "Add item"
+msgstr "Добавить предмет"
+
+msgctxt "<Item Link>"
+msgid "<Item Link>"
+msgstr "<Прямая ссылка на предмет>"
+
+msgctxt "Remove item"
+msgid "Remove item"
+msgstr "Убрать предмет"

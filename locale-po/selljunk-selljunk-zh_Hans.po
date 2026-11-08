@@ -1,0 +1,122 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Chinese (Simplified Han script) (SellJunk)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-08 14:31+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Chinese (Simplified Han script) <https://weblate.quadduo.net/"
+"projects/selljunk/selljunk/zh_Hans/>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Weblate 2026.10.1\n"
+"Language: zh_Hans\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgctxt "Sell Junk"
+msgid "Sell Junk"
+msgstr "出售雜物"
+
+msgctxt "Sold"
+msgid "Sold"
+msgstr "售出:"
+
+msgctxt "Only 1 item stack can be destroyed at the time"
+msgid "Only 1 item stack can be destroyed at the time"
+msgstr ""
+
+msgctxt "Destroyed"
+msgid "Destroyed"
+msgstr "已摧毀"
+
+msgctxt "Gained"
+msgid "Gained"
+msgstr "獲得:"
+
+msgctxt "Added"
+msgid "Added"
+msgstr "已新增"
+
+msgctxt "Removed"
+msgid "Removed"
+msgstr "已移除"
+
+#, fuzzy
+msgctxt "Exceptions succesfully cleared."
+msgid "Exceptions successfully cleared."
+msgstr "例外成功清除"
+
+msgctxt "Command accepts only itemlinks."
+msgid "Command accepts only itemlinks."
+msgstr "命令僅允許物品鏈接"
+
+msgctxt "Automatically sell junk"
+msgid "Automatically sell junk"
+msgstr "自動售出雜物"
+
+msgctxt ""
+"Toggles the automatic selling of junk when the merchant window is opened."
+msgid ""
+"Toggles the automatic selling of junk when the merchant window is opened."
+msgstr "與商人交易時自動販賣包裹中的垃圾物品"
+
+msgctxt "Sell max. 12 items"
+msgid "Sell max. 12 items"
+msgstr "每次只販售最多12樣物品"
+
+msgctxt ""
+"This is failsafe mode. Will sell only 12 items in one pass. In case of an "
+"error, all items can be bought back from vendor."
+msgid ""
+"This is failsafe mode. Will sell only 12 items in one pass. In case of an "
+"error, all items can be bought back from vendor."
+msgstr "這是個安全模式。每次只販售最多12樣物品。當設定錯誤時可以從商人處買回所有物品"
+
+msgctxt "Show gold gained"
+msgid "Show gold gained"
+msgstr "顯示金錢獲得"
+
+msgctxt "Shows gold gained from selling trash."
+msgid "Shows gold gained from selling trash."
+msgstr "顯示販售垃圾所獲得的金額"
+
+msgctxt "Show 'item sold' spam"
+msgid "Show 'item sold' spam"
+msgstr "顯示“物品已售出”信息"
+
+msgctxt "Prints itemlinks to chat, when automatically selling items."
+msgid "Prints itemlinks to chat, when automatically selling items."
+msgstr "自動售出物品時將物品鏈接發送至聊天窗口"
+
+msgctxt "Clear exceptions"
+msgid "Clear exceptions"
+msgstr "清除例外"
+
+msgctxt "Clear"
+msgid "Clear"
+msgstr "清除例外清單"
+
+msgctxt "Removes all exceptions."
+msgid "Removes all exceptions."
+msgstr "將例外清單中的所有物品移除"
+
+msgctxt "Exceptions"
+msgid "Exceptions"
+msgstr "共同列外物品"
+
+msgctxt "Drag item into this window to add/remove it from exception list"
+msgid "Drag item into this window to add/remove it from exception list"
+msgstr "拖動物品到這個視窗來新增/移除例外物品"
+
+msgctxt "Add item"
+msgid "Add item"
+msgstr "新增物品"
+
+msgctxt "<Item Link>"
+msgid "<Item Link>"
+msgstr "<物品鏈結>"
+
+msgctxt "Remove item"
+msgid "Remove item"
+msgstr "移除物品:"
