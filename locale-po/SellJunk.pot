@@ -7,57 +7,57 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: SellJunk.lua:33
+#: SellJunk.lua:29
 msgid "Sell Junk"
 msgstr "Sell Junk"
 
-#: SellJunk.lua:113
+#: SellJunk.lua:109
 msgid "Sold"
 msgstr "Sold"
 
-#: SellJunk.lua:146
+#: SellJunk.lua:142
 msgid "Only 1 item stack can be destroyed at the time"
 msgstr "Only 1 item stack can be destroyed at the time"
 
-#: SellJunk.lua:162
+#: SellJunk.lua:158
 msgid "Destroyed"
 msgstr "Destroyed"
 
-#: SellJunk.lua:184
+#: SellJunk.lua:180
 msgid "Gained"
 msgstr "Gained"
 
-#: SellJunk.lua:210
+#: SellJunk.lua:206
 msgid "Added"
 msgstr "Added"
 
-#: SellJunk.lua:251
+#: SellJunk.lua:247
 msgid "Removed"
 msgstr "Removed"
 
-#: SellJunk.lua:297
+#: SellJunk.lua:293
 msgid "Exceptions succesfully cleared."
 msgstr "Exceptions succesfully cleared."
 
-#: SellJunk.lua:306 SellJunk.lua:312
+#: SellJunk.lua:302 SellJunk.lua:308
 msgid "Command accepts only itemlinks."
 msgstr "Command accepts only itemlinks."
 
-#: SellJunk.lua:341
+#: SellJunk.lua:337
 msgid "Automatically sell junk"
 msgstr "Automatically sell junk"
 
-#: SellJunk.lua:342
+#: SellJunk.lua:338
 msgid ""
 "Toggles the automatic selling of junk when the merchant window is opened."
 msgstr ""
 "Toggles the automatic selling of junk when the merchant window is opened."
 
-#: SellJunk.lua:355
+#: SellJunk.lua:351
 msgid "Sell max. 12 items"
 msgstr "Sell max. 12 items"
 
-#: SellJunk.lua:356
+#: SellJunk.lua:352
 msgid ""
 "This is failsafe mode. Will sell only 12 items in one pass. In case of an "
 "error, all items can be bought back from vendor."
@@ -65,50 +65,50 @@ msgstr ""
 "This is failsafe mode. Will sell only 12 items in one pass. In case of an "
 "error, all items can be bought back from vendor."
 
-#: SellJunk.lua:368
+#: SellJunk.lua:364
 msgid "Show gold gained"
 msgstr "Show gold gained"
 
-#: SellJunk.lua:369
+#: SellJunk.lua:365
 msgid "Shows gold gained from selling trash."
 msgstr "Shows gold gained from selling trash."
 
-#: SellJunk.lua:381
+#: SellJunk.lua:377
 msgid "Show 'item sold' spam"
 msgstr "Show 'item sold' spam"
 
-#: SellJunk.lua:382
+#: SellJunk.lua:378
 msgid "Prints itemlinks to chat, when automatically selling items."
 msgstr "Prints itemlinks to chat, when automatically selling items."
 
-#: SellJunk.lua:389
+#: SellJunk.lua:385
 msgid "Clear exceptions"
 msgstr "Clear exceptions"
 
-#: SellJunk.lua:394
+#: SellJunk.lua:390
 msgid "Clear"
 msgstr "Clear"
 
-#: SellJunk.lua:395
+#: SellJunk.lua:391
 msgid "Removes all exceptions."
 msgstr "Removes all exceptions."
 
-#: SellJunk.lua:406
+#: SellJunk.lua:402
 msgid "Exceptions"
 msgstr "Exceptions"
 
-#: SellJunk.lua:411
+#: SellJunk.lua:407
 msgid "Drag item into this window to add/remove it from exception list"
 msgstr "Drag item into this window to add/remove it from exception list"
 
-#: SellJunk.lua:416
+#: SellJunk.lua:412
 msgid "Add item"
 msgstr "Add item"
 
-#: SellJunk.lua:417 SellJunk.lua:425
+#: SellJunk.lua:413 SellJunk.lua:421
 msgid "<Item Link>"
 msgstr "<Item Link>"
 
-#: SellJunk.lua:424
+#: SellJunk.lua:420
 msgid "Remove item"
 msgstr "Remove item"
